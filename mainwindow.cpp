@@ -204,7 +204,7 @@ void MainWindow::on_radioButton_6_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-
+ui->tableView_2->setModel(temptable.afficher_2());
 }
 
 void MainWindow::on_pushButton_ajouter_2_clicked()
@@ -220,7 +220,7 @@ void MainWindow::on_pushButton_ajouter_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_2->setModel(modal);
 }
 
 void MainWindow::on_pushButton_modifier_2_clicked()
@@ -236,7 +236,7 @@ void MainWindow::on_pushButton_modifier_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_2->setModel(modal);
 }
 
 void MainWindow::on_pushButton_supprimer_2_clicked()
@@ -252,7 +252,7 @@ void MainWindow::on_pushButton_supprimer_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_2->setModel(modal);
 
 }
 

@@ -9,7 +9,7 @@
 #include "client.h"
 #include <QFileDialog>
 #include <QDialog>
-
+#include "tables.h"
 
 class Connection
 {
@@ -86,5 +86,6 @@ private:
     Ui::MainWindow *ui;
     Client tempclient;
     QStringList files;
+    Tables temptable;
 };
 #endif // MAINWINDOW_H
