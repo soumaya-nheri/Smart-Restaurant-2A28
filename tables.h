@@ -22,6 +22,8 @@ public:
     QSqlQueryModel * afficher_2();
     bool modifier_2(QString,QString);
     bool supprimer_2(QString);
+    QSqlQueryModel * cherchertable(QString Numero);
+
 };
 
 #endif // TABLES_H

@@ -82,6 +82,12 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_chercher_2_clicked();
+
+    void on_pushButton_retour_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     Client tempclient;

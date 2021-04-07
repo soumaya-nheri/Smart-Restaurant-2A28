@@ -13,7 +13,9 @@
 #include <QtSql/QSqlDatabase>
 #include "smtp.h"
 #include <QDebug>
-
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QtPrintSupport>
 
 
 Connection::Connection(){}
@@ -276,5 +278,23 @@ void MainWindow::on_pushButton_retour_4_clicked()
 }
 
 
+
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QPrinter printer;
+        printer.setPrinterName("diserter printer name");
+        QPrintDialog dialog(&printer,this);
+        if(dialog.exec()==QDialog::Rejected)return;
+        ui->tableView->render(&printer);
+}
+
+void MainWindow::on_pushButton_chercher_2_clicked()
+{
+    QString Numero= ui->lineEdit_2->text() ;
+
+    ui->tableView_2->setModel(temptable.cherchertable(Numero));
+}
 
 
