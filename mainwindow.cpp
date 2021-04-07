@@ -3,6 +3,7 @@
 #include "conge.h"
 #include <QPrinter>
 #include <QFileDialog>
+#include <smtp.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -16,10 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_staff->setSelectionMode(QAbstractItemView::SingleSelection);
 
     QSqlQueryModel *model2=new QSqlQueryModel();
+    QSqlQueryModel *model3=new QSqlQueryModel();
+    model3->setQuery("select email from staff");
     QString nom;
     model2->setQuery("select nom from staff");
     ui->comboBox_employe->setModel(model2);
-    ui->comboBox->setModel(model2);
+    ui->comboBox->setModel(model3);
 }
 
 MainWindow::~MainWindow()
@@ -50,17 +53,20 @@ void MainWindow::on_ajouter_staff_clicked()
     {
         qDebug() << "Erreur d'ajout.";
     }
-
+    QSqlQueryModel *model2=new QSqlQueryModel();
+    QString s;
+    model2->setQuery("select nom from staff");
+    ui->comboBox_employe->setModel(model2);
+    ui->comboBox->setModel(model2);
 }
 
 void MainWindow::on_modifier_staff_clicked()
 {
     if (ui->modifier_staff->isChecked())
     {
-
         ui->modifier_staff->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
-        tableModel->setTable("staff");
+        tableModel->setTable("STAFF");
         tableModel->select();
         ui->tableView_staff->setModel(tableModel);
     }
@@ -68,7 +74,6 @@ void MainWindow::on_modifier_staff_clicked()
     {
         ui->modifier_staff->setText(tr("Modifier"));
         ui->tableView_staff->setModel(tmpstaff.afficher());
-
     }
 }
 
@@ -234,7 +239,7 @@ void MainWindow::on_rechercher_staff_clicked()
 
 void MainWindow::on_recherche_staff_textChanged(const QString &arg1)
 {
-    ui->tableView_staff->setModel(tmpstaff.recherchestaff(arg1));
+    ui->tableView_staff->setModel(tmpstaff.rechercher(arg1));
 }
 
 void MainWindow::on_rechercher_staff_clicked()
@@ -329,4 +334,10 @@ void MainWindow::on_pushButtonRechercherConge_clicked()
 
              }
 }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
+    smtp->sendMail("Qt projet esprit", ui->comboBox->currentText() ,"Planning"," du votre seance de travaille : "+ui->DATE_PRESENCE->date().toString("dddd, dd MMMM yyyy"));
 }

@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     planning.cpp \
+    smtp.cpp \
     staff.cpp
 
 HEADERS += \
@@ -22,6 +23,7 @@ HEADERS += \
     database.h \
     mainwindow.h \
     planning.h \
+    smtp.h \
     staff.h
 
 FORMS += \

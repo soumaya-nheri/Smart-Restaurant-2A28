@@ -54,6 +54,14 @@ bool staff::supprimer(QString cin)
     return qry.exec();
 }
 
+QSqlQueryModel *staff::rechercher(QString r)
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery("select * from staff where upper(nom) like upper('%"+r+"%') or upper(prenom) like upper('%"+r+"%') or upper(cin) like upper('%"+r+"%') or upper(telephone) like upper('%"+r+"%') or upper(email) like upper('%"+r+"%')");
+
+    return model;
+}
+
 QSqlQueryModel * staff::recherchestaff(QString nom)
 {
     QSqlQueryModel * model = new QSqlQueryModel();

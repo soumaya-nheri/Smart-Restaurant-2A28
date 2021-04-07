@@ -18,6 +18,7 @@ public:
     QSqlQueryModel *recherchestaff(QString);
     QSqlQueryModel * afficher();
     bool supprimer(QString);
+    QSqlQueryModel *rechercher(QString r);
 };
 
 #endif // STAFF_H
