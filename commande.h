@@ -50,6 +50,7 @@ public:
     QSqlQueryModel * trier_commandeStaff();
     QSqlQueryModel * rechercher_commande(const QString &b);
     QSqlQueryModel * Stat_commande();
+    QSqlQueryModel * Stat_commandeStaff();
 };
 
 #endif // COMMANDE_H

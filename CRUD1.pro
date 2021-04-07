@@ -52,4 +52,5 @@ RESOURCES += \
 DISTFILES += \
     Click.mp3 \
     Click.wav \
+    music.mp3 \
     sound/Click.wav

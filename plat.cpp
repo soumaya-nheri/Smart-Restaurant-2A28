@@ -73,9 +73,9 @@ QSqlQueryModel * Plat::Afficher_plat()
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("SELECT * FROM PLATS");
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_PLAT"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("NOM_PLAT"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("DESCRIPTION_PLAT"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("PRIX_PLAT"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("NOM_PLAT"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("DESCRIPTION_PLAT"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("PRIX_PLAT"));
     return model;
 }
 

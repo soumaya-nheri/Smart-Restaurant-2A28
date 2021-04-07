@@ -4,7 +4,6 @@ Commande::Commande()
 {
     ID_COM="";
     TYPE_COM="";
-    //DATE_COM=;
     ID_STAFF="";
     ID_CLIENT="";
     ID_PLAT="";
@@ -122,14 +121,6 @@ QSqlQueryModel * Commande:: Afficher_commande()
     return model;
 }
 
-QSqlQueryModel * Commande:: Stat_commande()
-{
-    QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("SELECT COUNT(*) FROM COMMANDES");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("nb commandes"));
-    return model;
-}
-
 bool Commande::Modifier_commande()
 {
     QSqlQuery query;
@@ -208,3 +199,19 @@ QSqlQueryModel * Commande::rechercher_commande(const QString &b)
    return model;
 }
 
+QSqlQueryModel * Commande:: Stat_commande()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT COUNT(*) FROM COMMANDES");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("nb commandes"));
+    return model;
+}
+
+QSqlQueryModel * Commande::Stat_commandeStaff()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT ID_STAFF,COUNT(*) FROM COMMANDES GROUP BY ID_STAFF");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("id_staff"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nb commandes"));
+    return model;
+}

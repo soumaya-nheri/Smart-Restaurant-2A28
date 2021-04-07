@@ -23,6 +23,8 @@ private slots:
 //commandes
     void on_pushButton_ajoutercom_clicked();
 
+    void on_pushButton_annulerCom_clicked();
+
     void on_pushButton_modifierCom_clicked();
 
     void on_pushButton_vaModificationCom_clicked();
@@ -42,6 +44,8 @@ private slots:
 //plats
     void on_pushButton_ajouterplat_clicked();
 
+    void on_pushButton_annulerPlat_clicked();
+
     void on_pushButton_modifierPlat_clicked();
 
     void on_pushButton_vaModificationPlat_clicked();
@@ -58,15 +62,14 @@ private slots:
 
     void on_pushButton_rechercherPlat_clicked();
 
-
-
-
 private:
     Ui::MainWindow *ui;
     Commande Com;
     Plat P;
     QMediaPlayer *click;
-    QPropertyAnimation * animation;
+    QMediaPlayer *music;
     QTabWidget * tab;
+    //QPropertyAnimation * animation;
+
 };
 #endif // MAINWINDOW_H
