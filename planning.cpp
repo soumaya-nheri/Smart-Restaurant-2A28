@@ -1,17 +1,17 @@
-#include "staff.h"
-
-staff::staff()
+#include "planning.h"
+/*
+planning::planning()
 {
 
 }
 
-bool staff::ajouter()
+bool planning::ajouter()
 {
     QSqlQuery query;
 
 
 
-    query.prepare("INSERT INTO STAFF (cin, nom, prenom,email,telephone,login,password,role,salaire)"
+    query.prepare("INSERT INTO planning (cin, nom, prenom,email,telephone,login,password,role,salaire)"
                       "VALUES (:cin, :nom, :prenom,:email,:telephone,:login,:password,:role,:salaire)");
 
     query.bindValue(":cin",cin);
@@ -26,11 +26,11 @@ bool staff::ajouter()
 
     return query.exec();
 }
-QSqlQueryModel * staff::afficher()
+QSqlQueryModel * planning::afficher()
 {
     QSqlQueryModel *model= new QSqlQueryModel();
 
-    model->setQuery("select * from staff");
+    model->setQuery("select * from planning");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("CIN"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
@@ -46,17 +46,11 @@ QSqlQueryModel * staff::afficher()
     return model;
 }
 
-bool staff::supprimer(QString cin)
+bool planning::supprimer(QString cin)
 {
     QSqlQuery qry;
-    qry.prepare("Delete from staff where CIN = :CIN");
+    qry.prepare("Delete from planning where CIN = :CIN");
     qry.bindValue(":CIN",cin);
     return qry.exec();
 }
-
-QSqlQueryModel * staff::recherchestaff(QString nom)
-{
-    QSqlQueryModel * model = new QSqlQueryModel();
-    model->setQuery("select * from staff where nom like'"+nom+"%'");
-    return model;
-}
+*/
