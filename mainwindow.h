@@ -19,6 +19,7 @@
 #include <QPropertyAnimation>
 #include "database.h"
 #include "staff.h"
+#include "planning.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -57,8 +58,11 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_supprimer_planning_clicked();
+
 private:
     Ui::MainWindow *ui;
     staff tmpstaff;
+    planning tmplanning;
 };
 #endif // MAINWINDOW_H

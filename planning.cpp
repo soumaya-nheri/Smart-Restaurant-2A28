@@ -1,5 +1,5 @@
 #include "planning.h"
-/*
+
 planning::planning()
 {
 
@@ -11,18 +11,14 @@ bool planning::ajouter()
 
 
 
-    query.prepare("INSERT INTO planning (cin, nom, prenom,email,telephone,login,password,role,salaire)"
-                      "VALUES (:cin, :nom, :prenom,:email,:telephone,:login,:password,:role,:salaire)");
+    query.prepare("INSERT INTO planning (date_presence, nb_heure,staff)"
+                      "VALUES (:date_presence, :nb_heure,:staff)");
 
-    query.bindValue(":cin",cin);
-    query.bindValue(":nom",nom);
-    query.bindValue(":prenom",prenom);
-    query.bindValue(":email",email);
-    query.bindValue(":telephone",telephone);
-    query.bindValue(":login",login);
-    query.bindValue(":password",password);
-    query.bindValue(":role",role);
-    query.bindValue(":salaire",salaire);
+/*    query.bindValue(":id_presence",ID_PRESENCE);*/
+    query.bindValue(":date_presence",DATE_PRESENCE);
+    query.bindValue(":nb_heure",NB_HEURE);
+    query.bindValue(":staff",STAFF);
+
 
     return query.exec();
 }
@@ -30,27 +26,15 @@ QSqlQueryModel * planning::afficher()
 {
     QSqlQueryModel *model= new QSqlQueryModel();
 
-    model->setQuery("select * from planning");
-
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("CIN"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prenom"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Email"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Telephone"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Login"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Mot de passe"));
-    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Rôle"));
-    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Salaire"));
-
+    model->setQuery("select staff,date_presence,nb_heure from planning order by date_presence");
 
     return model;
 }
 
-bool planning::supprimer(QString cin)
+bool planning::supprimer(QString DATE_PRESENCE)
 {
     QSqlQuery qry;
-    qry.prepare("Delete from planning where CIN = :CIN");
-    qry.bindValue(":CIN",cin);
+    qry.prepare("Delete from planning where date_presence = :date_presence");
+    qry.bindValue(":date_presence",DATE_PRESENCE);
     return qry.exec();
 }
-*/

@@ -255,6 +255,10 @@ void MainWindow::on_rechercher_staff_clicked()
 void MainWindow::on_ajouter_planning_clicked()
 {
 
+    planning p("x",ui->DATE_PRESENCE->date(),ui->NB_HEURE->text().toInt(),ui->comboBox->currentText());
+    bool test=p.ajouter();
+    if (test)
+         ui->tableView_planning->setModel(tmplanning.afficher());
 }
 
 void MainWindow::on_pushButtonRechercherConge_clicked()
@@ -340,4 +344,18 @@ void MainWindow::on_pushButton_clicked()
 {
     Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
     smtp->sendMail("Qt projet esprit", ui->comboBox->currentText() ,"Planning"," du votre seance de travaille : "+ui->DATE_PRESENCE->date().toString("dddd, dd MMMM yyyy"));
+}
+
+void MainWindow::on_supprimer_planning_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_planning->selectionModel();
+
+    QString date_presence =select->selectedRows(0).value(0).data().toString();
+
+    if(tmplanning.supprimer(date_presence))
+    {
+        ui->tableView_planning->setModel(tmplanning.afficher());
+
+    }
+
 }

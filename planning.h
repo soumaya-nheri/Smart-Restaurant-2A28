@@ -7,17 +7,18 @@
 #include <QDate>
 class planning
 {
-   /* QString ID_PRESENCE;
+    QString ID_PRESENCE;
     QDate DATE_PRESENCE;
-    int NB_HEURE;*/
+    int NB_HEURE;
+    QString STAFF;
 
 public:
-/*
+
     planning();
-    planning(QString ID_PRESENCE, QDate DATE_PRESENCE,int NB_HEURE):cin(c),nom(n),prenom(p),email(e),telephone(t),login(l),password(pass),role(r),salaire(s){}
+    planning(QString i, QDate d,int n, QString s):ID_PRESENCE(i),DATE_PRESENCE(d),NB_HEURE(n),STAFF(s){}
     bool ajouter();
     QSqlQueryModel * afficher();
-    bool supprimer(QString);*/
+    bool supprimer(QString);
 };
 
 #endif // planning_H

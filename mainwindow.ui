@@ -394,7 +394,7 @@
                <item>
                 <widget class="QPushButton" name="modifier_planning">
                  <property name="text">
-                  <string>Modifier</string>
+                  <string>Export PDF planning</string>
                  </property>
                  <property name="checkable">
                   <bool>true</bool>
