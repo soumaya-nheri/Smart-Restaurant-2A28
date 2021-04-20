@@ -51,6 +51,7 @@ public:
     QSqlQueryModel * rechercher_commande(const QString &b);
     QSqlQueryModel * Stat_commande();
     QSqlQueryModel * Stat_commandeStaff();
+    QSqlQueryModel * behija();
 };
 
 #endif // COMMANDE_H

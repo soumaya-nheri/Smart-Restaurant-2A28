@@ -110,17 +110,22 @@ bool Commande:: Ajouter_commande()
 QSqlQueryModel * Commande:: Afficher_commande()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("SELECT * FROM COMMANDES");
+    model->setQuery("SELECT ID_COM,TYPE_COM,DATE_COM,ID_STAFF,ID_CLIENT,ID_PLAT,ID_TABLE FROM COMMANDES");
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_COM"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("TYPE_COM"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("DATE_COM"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_STAFF"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_CLIENT"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_PLAT"));
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_TABLE"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("TYPE_COM"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("DATE_COM"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("ID_STAFF"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("ID_CLIENT"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("ID_PLAT"));
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("ID_TABLE"));
     return model;
 }
-
+ QSqlQueryModel * Commande::behija()
+ {
+     QSqlQueryModel * model=new QSqlQueryModel();
+     model->setQuery("SELECT TYPE_COM FROM COMMANDES");
+     return model;
+ }
 bool Commande::Modifier_commande()
 {
     QSqlQuery query;

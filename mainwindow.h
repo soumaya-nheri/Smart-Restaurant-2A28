@@ -6,7 +6,9 @@
 #include<QMediaPlayer>
 #include "commande.h"
 #include "plat.h"
+#include"stat.h"
 #include<QLineEdit>
+#include <QSystemTrayIcon>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -69,6 +71,8 @@ private:
     QMediaPlayer *click;
     QMediaPlayer *music;
     QTabWidget * tab;
+    stat S;
+    QSystemTrayIcon *mysystem;
     //QPropertyAnimation * animation;
 
 };

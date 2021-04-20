@@ -1256,7 +1256,7 @@ QStatusBar
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Commande">
      <property name="styleSheet">
@@ -1275,7 +1275,7 @@ QStatusBar
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="ajouterCom">
        <property name="styleSheet">
@@ -1351,7 +1351,7 @@ QStatusBar
          <rect>
           <x>230</x>
           <y>470</y>
-          <width>61</width>
+          <width>71</width>
           <height>41</height>
          </rect>
         </property>
@@ -1849,6 +1849,22 @@ QStatusBar
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>50</y>
+          <width>501</width>
+          <height>381</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout"/>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="plat">
@@ -1865,7 +1881,7 @@ QStatusBar
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="ajouterPlat">
        <attribute name="title">

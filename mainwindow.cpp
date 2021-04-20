@@ -13,6 +13,9 @@
 #include<QPropertyAnimation>
 #include<QMediaPlayer>
 #include<QTabWidget>
+#include<QCompleter>
+#include<QFileSystemModel>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -22,12 +25,23 @@ MainWindow::MainWindow(QWidget *parent)
     click->setMedia(QUrl::fromLocalFile("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/Click.wav"));
     music = new QMediaPlayer();
     music->setMedia(QUrl::fromLocalFile("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/music.mp3"));
-    music->play();
+    //music->play();
     ui->tableView_afficherCom->setModel(Com.Afficher_commande());
     ui->tableView_statCom->setModel(Com.Stat_commande());
     ui->tableView_statComStaff->setModel(Com.Stat_commandeStaff());
     ui->tableView_afficherPlat->setModel(P.Afficher_plat());
 
+    QCompleter *completer = new QCompleter();
+    completer->setModel(Com.behija());
+    ui->lineEdit_rechercherCom->setCompleter(completer);
+
+    mysystem = new QSystemTrayIcon(this);
+    mysystem->setVisible(true);
+    ui->tab->setBackgroundRole(S.make());
+/*
+    QCompleter *completer = new QCompleter(this);
+completer->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->lineEdit_rechercherCom->setCompleter(completer);*/
 }
 
 MainWindow::~MainWindow()
@@ -61,6 +75,8 @@ void MainWindow::on_pushButton_ajoutercom_clicked()
         ui->lineEdit_idclientB->setText("");
         ui->lineEdit_idplatB->setText("");
         ui->lineEdit_idtableB->setText("");
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Ajout effectiué avec succés"));
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Ajout non validé"),QObject::tr("Ajout de la commande non effectué.\n Verifier vos donnees ."),QMessageBox::Cancel);
@@ -130,7 +146,8 @@ void MainWindow::on_pushButton_vaModificationCom_clicked()
         ui->lineEdit_idplatB_2->setText("");
         ui->lineEdit_idtableB_2->setText("");
         QMessageBox::information(nullptr, QObject::tr("Modification validée"),QObject::tr("Modification de la commande effectuée.\n click cancel to exit."),QMessageBox::Cancel);
-
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Modification effectiuée avec succés"));
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Modification non validée"),QObject::tr("Modification non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
@@ -148,7 +165,8 @@ void MainWindow::on_pushButton_supprimercom_clicked()
          ui->tableView_statComStaff->setModel(Com.Stat_commandeStaff());
          ui->lineEdit_idcomSup->setText("");
         QMessageBox::information(nullptr, QObject::tr("suppression validée"),QObject::tr("suppression de la commande effectuée.\n click cancel to exit."),QMessageBox::Cancel);
-
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Suppression effectiuée avec succés"));
     }
     else
        QMessageBox::critical(nullptr, QObject::tr("suppression non validée"),QObject::tr("suppression de la commande non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
@@ -217,6 +235,8 @@ void MainWindow::on_pushButton_ajouterplat_clicked()
         ui->lineEdit_nomplat->setText("");
         ui->lineEdit_descriptionplat->setText("");
         ui->lineEdit_prixplat->setText("");
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Ajout effectiué avec succés"));
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Ajout non validé"),QObject::tr("Ajout du plat non effectué.\n verifier vos donnees."),QMessageBox::Cancel);
@@ -274,7 +294,8 @@ void MainWindow::on_pushButton_vaModificationPlat_clicked()
         ui->lineEdit_descriptionplat_2->setText("");
         ui->lineEdit_prixplat_2->setText("");
         QMessageBox::information(nullptr, QObject::tr("Modification validée"),QObject::tr("Modification du plat effectuée.\n click cancel to exit."),QMessageBox::Cancel);
-
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Modification effectiuée avec succés"));
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Modification non validée"),QObject::tr("Modification du plat non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
@@ -290,7 +311,8 @@ void MainWindow::on_pushButton_supprimerplat_clicked()
          ui->tableView_afficherPlat->setModel(P.Afficher_plat());
          ui->lineEdit_idplatSup->setText("");
         QMessageBox::information(nullptr, QObject::tr("Suppression validée"),QObject::tr("Suppression du plat effectuée.\n click cancel to exit."),QMessageBox::Cancel);
-
+        mysystem->show();
+        mysystem->showMessage(tr("notification"),tr("Sppression effectiuée avec succés"));
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Suppression validée"),QObject::tr("Suppression du plat non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
