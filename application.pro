@@ -16,6 +16,7 @@ SOURCES += \
     client.cpp \
     main.cpp \
     mainwindow.cpp \
+    mainwindow0.cpp \
     modifier.cpp \
     modifier_2.cpp \
     smtp.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     ajouter_2.h \
     client.h \
     mainwindow.h \
+    mainwindow0.h \
     modifier.h \
     modifier_2.h \
     smtp.h \
@@ -39,6 +41,7 @@ FORMS += \
     ajouter.ui \
     ajouter_2.ui \
     mainwindow.ui \
+    mainwindow0.ui \
     modifier.ui \
     modifier_2.ui \
     supprimer.ui \

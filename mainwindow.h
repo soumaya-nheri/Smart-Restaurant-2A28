@@ -46,13 +46,10 @@ private slots:
 
     void on_pushButton_mail_clicked();
 
-    void on_pushButton_retour_clicked();
+
 
     void on_pushButton_chercher_clicked();
 
-    void on_radioButton_2_clicked();
-
-    void on_radioButton_3_clicked();
 
     void on_radioButton_clicked();
 
@@ -74,19 +71,19 @@ private slots:
 
     void on_sendBtn_2_clicked();
 
-    void on_browseBtn_2_clicked();
 
-    void on_pushButton_supprimer_3_clicked();
+
+
 
     void on_pushButton_retour_4_clicked();
 
-    void on_tabWidget_currentChanged(int index);
+
 
     void on_pushButton_3_clicked();
 
     void on_pushButton_chercher_2_clicked();
 
-    void on_pushButton_retour_2_clicked();
+
 
 private:
     Ui::MainWindow *ui;
