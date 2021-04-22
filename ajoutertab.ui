@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>supprimer</class>
- <widget class="QDialog" name="supprimer">
+ <class>ajoutertab</class>
+ <widget class="QDialog" name="ajoutertab">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,7 +32,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>30</x>
      <y>40</y>
      <width>121</width>
      <height>16</height>
@@ -40,23 +40,70 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>10</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>Entrer Cin</string>
+    <string>Numero Table</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_cin">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>81</y>
-     <width>131</width>
-     <height>31</height>
+     <x>30</x>
+     <y>130</y>
+     <width>101</width>
+     <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Etat Table</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_numero">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reservé</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Vide</string>
    </property>
   </widget>
  </widget>
@@ -65,7 +112,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>supprimer</receiver>
+   <receiver>ajoutertab</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -81,7 +128,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>supprimer</receiver>
+   <receiver>ajoutertab</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

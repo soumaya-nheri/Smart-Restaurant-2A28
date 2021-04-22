@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>supprimer_2</class>
- <widget class="QDialog" name="supprimer_2">
+ <class>modifiertab</class>
+ <widget class="QDialog" name="modifiertab">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,21 +29,67 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>110</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Etat Table</string>
+   </property>
+  </widget>
   <widget class="QLineEdit" name="lineEdit_numero">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>60</y>
+     <x>40</x>
+     <y>50</y>
      <width>113</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QRadioButton" name="radioButton_2">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>30</y>
+     <y>180</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Vide</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reservé</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -66,7 +112,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>supprimer_2</receiver>
+   <receiver>modifiertab</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -82,7 +128,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>supprimer_2</receiver>
+   <receiver>modifiertab</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

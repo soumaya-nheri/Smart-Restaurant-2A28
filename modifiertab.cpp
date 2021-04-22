@@ -1,21 +1,21 @@
-#include "modifier_2.h"
-#include "ui_modifier_2.h"
+#include "modifiertab.h"
+#include "ui_modifiertab.h"
 #include "tables.h"
 #include <QMessageBox>
 
-modifier_2::modifier_2(QWidget *parent) :
+modifiertab::modifiertab(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::modifier_2)
+    ui(new Ui::modifiertab)
 {
     ui->setupUi(this);
 }
 
-modifier_2::~modifier_2()
+modifiertab::~modifiertab()
 {
     delete ui;
 }
 
-void modifier_2::on_buttonBox_accepted()
+void modifiertab::on_buttonBox_accepted()
 {
 
 
@@ -30,7 +30,7 @@ void modifier_2::on_buttonBox_accepted()
         Etat="vide";
     }
     Tables T(Etat,Numero);
-    bool test = T.modifier_2(Etat,Numero);
+    bool test = T.modifiertab(Etat,Numero);
     if(test)
     {
         QMessageBox::information(nullptr, QObject::tr("OK"),

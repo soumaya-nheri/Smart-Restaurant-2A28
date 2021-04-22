@@ -1,25 +1,25 @@
-#include "supprimer_2.h"
-#include "ui_supprimer_2.h"
+#include "supprimertab.h"
+#include "ui_supprimertab.h"
 #include "tables.h"
 #include <qmessagebox.h>
 
-supprimer_2::supprimer_2(QWidget *parent) :
+supprimertab::supprimertab(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::supprimer_2)
+    ui(new Ui::supprimertab)
 {
     ui->setupUi(this);
 }
 
-supprimer_2::~supprimer_2()
+supprimertab::~supprimertab()
 {
     delete ui;
 }
 
-void supprimer_2::on_buttonBox_accepted()
+void supprimertab::on_buttonBox_accepted()
 {
     QString Numero = ui->lineEdit_numero->text();
     Tables temp;
-    bool test=temp.supprimer_2(Numero);
+    bool test=temp.supprimertab(Numero);
     if(test)
     {
         QMessageBox::information(nullptr, QObject::tr("OK"),

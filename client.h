@@ -30,11 +30,11 @@ public:
     void setTel(QString t){Tel=t;}
     void setDate(QDate d){Dat=d;}
 
-    bool ajouter();
-    QSqlQueryModel * afficher();
-    bool modifier(QString,QString,QString,QString,QString,QDate);
-    bool supprimer(QString);
-    QSqlQueryModel * cherchercin(QString CIN);
+    bool ajouterres();
+    QSqlQueryModel * afficherres();
+    bool modifierres(QString,QString,QString,QString,QString,QDate);
+    bool supprimerres(QString);
+    QSqlQueryModel * cherchercinres(QString CIN);
 };
 
 #endif // CLIENT_H

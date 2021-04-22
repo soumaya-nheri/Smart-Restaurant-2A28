@@ -7,7 +7,7 @@ Tables::Tables(QString Etat, QString Numero)
 
 }
 
-bool Tables::ajouter_2()
+bool Tables::ajoutertab()
 {
     QSqlQuery query;
 
@@ -21,7 +21,7 @@ bool Tables::ajouter_2()
 
 }
 
-QSqlQueryModel * Tables::afficher_2()
+QSqlQueryModel * Tables::affichertab()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
 
@@ -36,7 +36,7 @@ QSqlQueryModel * Tables::afficher_2()
 
 }
 
-bool Tables::modifier_2(QString Etat, QString Numero)
+bool Tables::modifiertab(QString Etat, QString Numero)
 {
     QSqlQuery query;
     query.prepare("UPDATE tables SET Etat= :Etat,Numero= :Numero Where Numero= Numero");
@@ -46,7 +46,7 @@ bool Tables::modifier_2(QString Etat, QString Numero)
     return query.exec();
 }
 
-bool Tables::supprimer_2(QString Numero)
+bool Tables::supprimertab(QString Numero)
 {
     QSqlQuery query;
     query.prepare("Delete from tables where Numero= :Numero");

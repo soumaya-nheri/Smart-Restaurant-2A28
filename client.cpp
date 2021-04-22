@@ -9,7 +9,7 @@ Client::Client(QString CIN,QString Nom, QString Prenom,QString Mail,  QString Te
    this->Tel = Tel;
    this->Dat=Dat;
 }
-bool Client::ajouter()
+bool Client::ajouterres()
 {
     QSqlQuery query;
 
@@ -26,7 +26,7 @@ bool Client::ajouter()
 
 }
 
-QSqlQueryModel * Client::afficher()
+QSqlQueryModel * Client::afficherres()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
 
@@ -44,7 +44,7 @@ QSqlQueryModel * Client::afficher()
 
 }
 
-bool Client::modifier(QString CIN, QString Nom, QString Prenom, QString Mail, QString Tel, QDate Dat)
+bool Client::modifierres(QString CIN, QString Nom, QString Prenom, QString Mail, QString Tel, QDate Dat)
 {
     QSqlQuery query;
     query.prepare("UPDATE reservation SET CIN= :CIN,Nom= :Nom,Prenom= :Prenom,Mail= :Mail,Tel= :Tel,Dat= :Dat Where CIN= :CIN");
@@ -57,14 +57,14 @@ bool Client::modifier(QString CIN, QString Nom, QString Prenom, QString Mail, QS
     return query.exec();
 }
 
-bool Client::supprimer(QString CIN)
+bool Client::supprimerres(QString CIN)
 {
     QSqlQuery query;
     query.prepare("Delete from reservation where CIN= :CIN");
     query.bindValue(":CIN",CIN);
     return query.exec();
 }
-QSqlQueryModel * Client::cherchercin(QString CIN)
+QSqlQueryModel * Client::cherchercinres(QString CIN)
 {
 QSqlQueryModel * model = new QSqlQueryModel();
 QSqlQuery query;

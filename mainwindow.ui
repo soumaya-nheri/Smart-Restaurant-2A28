@@ -1305,7 +1305,7 @@ QStatusBar
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1345,7 +1345,7 @@ QStatusBar
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QLineEdit" name="lineEdit">
@@ -1358,7 +1358,7 @@ QStatusBar
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_ajouter">
+       <widget class="QPushButton" name="pushButton_ajouterres">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1379,7 +1379,7 @@ QStatusBar
          <string>Ajouter  Reservations</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_supprimer">
+       <widget class="QPushButton" name="pushButton_supprimerres">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1400,7 +1400,7 @@ QStatusBar
          <string>Supprimer  Reservations</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButton_listeres">
         <property name="geometry">
          <rect>
           <x>760</x>
@@ -1420,7 +1420,7 @@ QStatusBar
          <string>Telecharger Liste Des Reservation</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_chercher">
+       <widget class="QPushButton" name="pushButton_chercherres">
         <property name="geometry">
          <rect>
           <x>550</x>
@@ -1441,7 +1441,7 @@ QStatusBar
          <string>Chercher</string>
         </property>
        </widget>
-       <widget class="QTableView" name="tableView">
+       <widget class="QTableView" name="tableView_res">
         <property name="geometry">
          <rect>
           <x>280</x>
@@ -1525,21 +1525,21 @@ QStatusBar
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QRadioButton" name="radioButton_6">
+          <widget class="QRadioButton" name="radioButton_tricin">
            <property name="text">
-            <string>Tri par date</string>
+            <string>Tri par CIN</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_5">
+          <widget class="QRadioButton" name="radioButton_triprenom">
            <property name="text">
             <string>Tri par prenom</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_4">
+          <widget class="QRadioButton" name="radioButton_trinom">
            <property name="text">
             <string>Tri par nom</string>
            </property>
@@ -1547,7 +1547,7 @@ QStatusBar
          </item>
         </layout>
        </widget>
-       <widget class="QPushButton" name="pushButton_modifier">
+       <widget class="QPushButton" name="pushButton_modifierres">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1568,7 +1568,7 @@ QStatusBar
          <string>Modifier  Reservations</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="pushButton_res">
         <property name="geometry">
          <rect>
           <x>760</x>
@@ -1814,7 +1814,7 @@ QStatusBar
      <attribute name="title">
       <string>Gerer Tables</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_ajouter_2">
+     <widget class="QPushButton" name="pushButton_ajoutertab">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1840,7 +1840,7 @@ background-color: rgb(255, 0, 0);</string>
        <string>Ajouter  Table</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_modifier_2">
+     <widget class="QPushButton" name="pushButton_modifiertab">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1861,7 +1861,7 @@ background-color: rgb(255, 0, 0);</string>
        <string>Modifier  Etat Table</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_supprimer_2">
+     <widget class="QPushButton" name="pushButton_supprimertab">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1903,7 +1903,7 @@ background-color: rgb(255, 0, 0);</string>
        <string>🢀 Retour</string>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView_2">
+     <widget class="QTableView" name="tableView_table">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1913,7 +1913,7 @@ background-color: rgb(255, 0, 0);</string>
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_table">
       <property name="geometry">
        <rect>
         <x>730</x>
@@ -1957,7 +1957,7 @@ background-color: rgb(255, 0, 0);</string>
        <string>Entrer Numero Table</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_chercher_2">
+     <widget class="QPushButton" name="pushButton_cherchertab">
       <property name="geometry">
        <rect>
         <x>530</x>

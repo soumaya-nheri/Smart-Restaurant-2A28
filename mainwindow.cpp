@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "client.h"
-#include "ajouter.h"
-#include "modifier.h"
-#include "supprimer.h"
+#include "ajouterres.h"
+#include "modifierres.h"
+#include "supprimerres.h"
 #include "tables.h"
-#include "ajouter_2.h"
-#include "modifier_2.h"
-#include "supprimer_2.h"
+#include "ajoutertab.h"
+#include "modifiertab.h"
+#include "supprimertab.h"
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlDatabase>
@@ -91,9 +91,9 @@ void MainWindow::mailSent(QString status)
 
 //~Mailing
 
-void MainWindow::on_pushButton_ajouter_clicked()
+void MainWindow::on_pushButton_ajouterres_clicked()
 {
-    ajouter ajouter;
+    ajouterres ajouter;
     ajouter.setModal(true);
     ajouter.exec();
 
@@ -104,13 +104,13 @@ void MainWindow::on_pushButton_ajouter_clicked()
     qry->prepare("select * from reservation");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 
 }
 
-void MainWindow::on_pushButton_modifier_clicked()
+void MainWindow::on_pushButton_modifierres_clicked()
 {
-    modifier modifier;
+    modifierres modifier;
     modifier.setModal(true);
     modifier.exec();
 
@@ -121,12 +121,12 @@ void MainWindow::on_pushButton_modifier_clicked()
     qry->prepare("select * from reservation");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
-void MainWindow::on_pushButton_supprimer_clicked()
+void MainWindow::on_pushButton_supprimerres_clicked()
 {
-    supprimer supp;
+    supprimerres supp;
     supp.setModal(true);
     supp.exec();
 
@@ -137,21 +137,21 @@ void MainWindow::on_pushButton_supprimer_clicked()
     qry->prepare("select * from reservation");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
 
-void MainWindow::on_pushButton_chercher_clicked()
+void MainWindow::on_pushButton_chercherres_clicked()
 {
 
             QString CIN= ui->lineEdit->text() ;
-            ui->tableView->setModel(tempclient.cherchercin(CIN));
+            ui->tableView_res->setModel(tempclient.cherchercinres(CIN));
 
 
 }
 
 
-void MainWindow::on_radioButton_clicked()
+void MainWindow::on_radioButton_tricin_clicked()
 {
     Connection conn;
     QSqlQueryModel * modal = new QSqlQueryModel;
@@ -160,15 +160,15 @@ void MainWindow::on_radioButton_clicked()
     qry->prepare("select * from reservation ORDER BY CIN ");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_listeres_clicked()
 {
-      ui->tableView->setModel(tempclient.afficher());
+      ui->tableView_res->setModel(tempclient.afficherres());
 }
 
-void MainWindow::on_radioButton_5_clicked()
+void MainWindow::on_radioButton_triprenom_clicked()
 {
     Connection conn;
     QSqlQueryModel * modal = new QSqlQueryModel;
@@ -177,10 +177,10 @@ void MainWindow::on_radioButton_5_clicked()
     qry->prepare("select * from reservation ORDER BY Prenom");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
-void MainWindow::on_radioButton_4_clicked()
+void MainWindow::on_radioButton_trinom_clicked()
 {
     Connection conn;
     QSqlQueryModel * modal = new QSqlQueryModel;
@@ -189,10 +189,10 @@ void MainWindow::on_radioButton_4_clicked()
     qry->prepare("select * from reservation ORDER BY Nom");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
-void MainWindow::on_radioButton_6_clicked()
+void MainWindow::on_radioButton_tridate_clicked()
 {
     Connection conn;
     QSqlQueryModel * modal = new QSqlQueryModel;
@@ -201,17 +201,17 @@ void MainWindow::on_radioButton_6_clicked()
     qry->prepare("select * from reservation ORDER BY Date");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView->setModel(modal);
+    ui->tableView_res->setModel(modal);
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_pushButton_table_clicked()
 {
-ui->tableView_2->setModel(temptable.afficher_2());
+ui->tableView_table->setModel(temptable.affichertab());
 }
 
-void MainWindow::on_pushButton_ajouter_2_clicked()
+void MainWindow::on_pushButton_ajoutertab_clicked()
 {
-    ajouter_2 ajouter;
+    ajoutertab ajouter;
     ajouter.setModal(true);
     ajouter.exec();
 
@@ -222,12 +222,12 @@ void MainWindow::on_pushButton_ajouter_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView_2->setModel(modal);
+    ui->tableView_table->setModel(modal);
 }
 
-void MainWindow::on_pushButton_modifier_2_clicked()
+void MainWindow::on_pushButton_modifiertab_clicked()
 {
-    modifier_2 modifier;
+    modifiertab modifier;
     modifier.setModal(true);
     modifier.exec();
 
@@ -238,12 +238,12 @@ void MainWindow::on_pushButton_modifier_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView_2->setModel(modal);
+    ui->tableView_table->setModel(modal);
 }
 
-void MainWindow::on_pushButton_supprimer_2_clicked()
+void MainWindow::on_pushButton_supprimertab_clicked()
 {
-    supprimer_2 supp;
+    supprimertab supp;
     supp.setModal(true);
     supp.exec();
 
@@ -254,7 +254,7 @@ void MainWindow::on_pushButton_supprimer_2_clicked()
     qry->prepare("select * from tables");
     qry->exec();
     modal->setQuery(*qry);
-    ui->tableView_2->setModel(modal);
+    ui->tableView_table->setModel(modal);
 
 }
 
@@ -281,20 +281,45 @@ void MainWindow::on_pushButton_retour_4_clicked()
 
 
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_pushButton_res_clicked()
 {
     QPrinter printer;
         printer.setPrinterName("diserter printer name");
         QPrintDialog dialog(&printer,this);
         if(dialog.exec()==QDialog::Rejected)return;
-        ui->tableView->render(&printer);
+        ui->tableView_res->render(&printer);
 }
 
-void MainWindow::on_pushButton_chercher_2_clicked()
+void MainWindow::on_pushButton_cherchertab_clicked()
 {
     QString Numero= ui->lineEdit_2->text() ;
 
-    ui->tableView_2->setModel(temptable.cherchertable(Numero));
+    ui->tableView_table->setModel(temptable.cherchertable(Numero));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

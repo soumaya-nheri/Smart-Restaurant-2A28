@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow0</class>
+ <widget class="QMainWindow" name="MainWindow0">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="incorrect">
+    <property name="geometry">
+     <rect>
+      <x>331</x>
+      <y>594</y>
+      <width>521</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size:13px;
+color:red;
+background:none;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>111</x>
+      <y>290</y>
+      <width>521</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="line_username">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">color: white;
+text-decoration: underline;
+background:none;</string>
+       </property>
+       <property name="text">
+        <string>Mot de Passe oublier</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QCheckBox" name="checkBox">
+       <property name="styleSheet">
+        <string notr="true">font-size:13px;</string>
+       </property>
+       <property name="text">
+        <string>Rester Connecter</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Se Connecter</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="line_password">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>290</y>
+      <width>491</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="leftMargin">
+      <number>185</number>
+     </property>
+     <property name="topMargin">
+      <number>15</number>
+     </property>
+     <property name="rightMargin">
+      <number>90</number>
+     </property>
+     <property name="bottomMargin">
+      <number>15</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_login">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>104</x>
+      <y>59</y>
+      <width>531</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:none;font: 87 20pt &quot;Arial Black&quot;;
+font-size:36px;
+</string>
+       </property>
+       <property name="text">
+        <string>          Athentification</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

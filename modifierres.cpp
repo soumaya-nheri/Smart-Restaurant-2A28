@@ -1,21 +1,22 @@
-#include "modifier.h"
-#include "ui_modifier.h"
+#include "modifierres.h"
+#include"ui_modifierres.h"
 #include "client.h"
 #include <QMessageBox>
 
-modifier::modifier(QWidget *parent) :
+modifierres::modifierres(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::modifier)
+    ui(new Ui::modifierres)
 {
     ui->setupUi(this);
 }
 
-modifier::~modifier()
+modifierres::~modifierres()
 {
     delete ui;
 }
 
-void modifier::on_buttonBox_accepted()
+
+void modifierres::on_buttonBox_accepted()
 {
     QString CIN = ui->lineEdit_cin->text();
     QString Nom = ui->lineEdit_nom->text();
@@ -26,7 +27,7 @@ void modifier::on_buttonBox_accepted()
 
 
     Client C(CIN,Nom,Prenom,Mail,Tel,Date);
-     bool test=C.modifier(CIN,Nom,Prenom,Mail,Tel,Date);
+     bool test=C.modifierres(CIN,Nom,Prenom,Mail,Tel,Date);
     if(test)
     {
         QMessageBox::information(nullptr, QObject::tr("Modifier une reservationt !"),

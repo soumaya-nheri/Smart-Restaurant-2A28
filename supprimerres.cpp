@@ -1,23 +1,24 @@
-#include "supprimer.h"
-#include "ui_supprimer.h"
-
-supprimer::supprimer(QWidget *parent) :
+#include "supprimerres.h"
+#include "ui_supprimerres.h"
+#include <qmessagebox.h>
+#include "client.h"
+supprimerres::supprimerres(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::supprimer)
+    ui(new Ui::supprimerres)
 {
     ui->setupUi(this);
 }
 
-supprimer::~supprimer()
+supprimerres::~supprimerres()
 {
     delete ui;
 }
 
-void supprimer::on_buttonBox_accepted()
+void supprimerres::on_buttonBox_accepted()
 {
 
         QString CIN = ui->lineEdit_cin->text();
-        bool test=temp.supprimer(CIN);
+        bool test=temp.supprimerres(CIN);
         if(test)
         {
             QMessageBox::information(nullptr, QObject::tr("OK"),

@@ -1,31 +1,34 @@
-#include "ajouter.h"
-#include "ui_ajouter.h"
-#include "client.h"
+#include "ajoutertab.h"
+#include "ui_ajoutertab.h"
+#include "tables.h"
 #include <QMessageBox>
 
-ajouter::ajouter(QWidget *parent) :
+ajoutertab::ajoutertab(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ajouter)
+    ui(new Ui::ajoutertab)
 {
     ui->setupUi(this);
 }
 
-ajouter::~ajouter()
+ajoutertab::~ajoutertab()
 {
     delete ui;
 }
 
-void ajouter::on_buttonBox_accepted()
+void ajoutertab::on_buttonBox_accepted()
 {
-    QString CIN = ui->lineEdit_cin->text();
-    QString Nom = ui->lineEdit_nom->text();
-    QString Prenom = ui->lineEdit_prenom->text();
-    QString Mail = ui->lineEdit_mail->text();
-    QString Tel = ui->lineEdit_tel->text();
-    QDate Date = ui->dateTimeEdit->date();
+    QString Etat;
 
-    Client C(CIN,Nom,Prenom,Mail,Tel,Date);
-    bool test = C.ajouter();
+    QString Numero = ui->lineEdit_numero->text();
+    if (ui->radioButton->isChecked()){
+         Etat="reserve";
+    }
+    else if (ui->radioButton_2->isChecked())
+    {
+        Etat="vide";
+    }
+    Tables T(Etat,Numero);
+    bool test = T.ajoutertab();
     if(test)
     {
         QMessageBox::information(nullptr, QObject::tr("OK"),
@@ -37,5 +40,3 @@ void ajouter::on_buttonBox_accepted()
                                  QObject::tr("Ajout non effectuer\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
 }
-
-

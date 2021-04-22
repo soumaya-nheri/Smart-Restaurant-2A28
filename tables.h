@@ -18,10 +18,10 @@ public:
     void setEtat (QString e ){Etat=e;}
     void setNumero(QString n){Numero=n;}
 
-    bool ajouter_2();
-    QSqlQueryModel * afficher_2();
-    bool modifier_2(QString,QString);
-    bool supprimer_2(QString);
+    bool ajoutertab();
+    QSqlQueryModel * affichertab();
+    bool modifiertab(QString,QString);
+    bool supprimertab(QString);
     QSqlQueryModel * cherchertable(QString Numero);
 
 };
