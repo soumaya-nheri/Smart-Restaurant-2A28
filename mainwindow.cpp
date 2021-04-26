@@ -15,12 +15,13 @@
 #include<QTabWidget>
 #include<QCompleter>
 #include<QFileSystemModel>
-
+#include<QSqlRecord>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+//music
     click = new QMediaPlayer();
     click->setMedia(QUrl::fromLocalFile("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/Click.wav"));
     music = new QMediaPlayer();
@@ -31,17 +32,58 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_statComStaff->setModel(Com.Stat_commandeStaff());
     ui->tableView_afficherPlat->setModel(P.Afficher_plat());
 
-    QCompleter *completer = new QCompleter();
-    completer->setModel(Com.behija());
-    ui->lineEdit_rechercherCom->setCompleter(completer);
+//Recherche Qcompleter
+    QCompleter *completerCom = new QCompleter();
+    completerCom->setModel(Com.rechercher_com());
+    ui->lineEdit_rechercherCom->setCompleter(completerCom);
 
+    QCompleter *completerPlat = new QCompleter();
+    completerPlat->setModel(P.rechercher_plat2());
+    ui->lineEdit_rechercherPlat->setCompleter(completerPlat);
+//notification
     mysystem = new QSystemTrayIcon(this);
     mysystem->setVisible(true);
-    ui->tab->setBackgroundRole(S.make());
-/*
-    QCompleter *completer = new QCompleter(this);
-completer->setCaseSensitivity(Qt::CaseInsensitive);
-    ui->lineEdit_rechercherCom->setCompleter(completer);*/
+
+// controle de saisie
+    ui->lineEdit_idPlat->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idPlat_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idclientB->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idclientB_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idcom->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idcomSup->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idcom_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idplatB->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idplatB_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idplatSup->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idstaffB->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idstaffB_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idtableB->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_idtableB_2->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_prixplat->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_prixplat_2->setValidator(new QIntValidator(0,999999,this));
+    //animation
+        animation =new QPropertyAnimation(ui->pushButton_ajoutercom,"geometry");
+        animation->setDuration(10000);
+        animation->setStartValue(QRect(700, 500, 100, 15));
+        animation->start();
+
+    //arduino
+      /*  int ret ;
+        ret = A.connect_arduino();
+        switch(ret)
+        {
+        case(0):
+            qDebug() << "arduino is available and connected to :" << A.getarduino_port_name();
+            break;
+        case(1):
+            qDebug() << "arduino is available but not connected to :" << A.getarduino_port_name();
+            break;
+        case(-1):
+            qDebug() << "arduino is not available ";
+
+        }
+        QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
+*/
 }
 
 MainWindow::~MainWindow()
@@ -64,19 +106,27 @@ void MainWindow::on_pushButton_ajoutercom_clicked()
     bool test=C.Ajouter_commande();
     if(test)
     {
+        //arduino
+        //A.write_to_arduino(Com.afficher());
+        qDebug() <<"le plat est :"<<Com.afficher();
+
         ui->tableView_afficherCom->setModel(Com.Afficher_commande());
         ui->tableView_statCom->setModel(Com.Stat_commande());
-
-        QMessageBox::information(nullptr, QObject::tr("Ajout validé"),QObject::tr("Ajout de la commande effectué.\n click cancel to exit."),QMessageBox::Cancel);
         ui->tabWidget_commande->setCurrentWidget(ui->afficherCom);
+
         ui->lineEdit_idcom->setText("");
         ui->lineEdit_typecom->setText("");
         ui->lineEdit_idstaffB->setText("");
         ui->lineEdit_idclientB->setText("");
         ui->lineEdit_idplatB->setText("");
         ui->lineEdit_idtableB->setText("");
+
+
+        QMessageBox::information(nullptr, QObject::tr("Ajout validé"),QObject::tr("Ajout de la commande effectué.\n click cancel to exit."),QMessageBox::Cancel);
         mysystem->show();
         mysystem->showMessage(tr("notification"),tr("Ajout effectiué avec succés"));
+
+
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Ajout non validé"),QObject::tr("Ajout de la commande non effectué.\n Verifier vos donnees ."),QMessageBox::Cancel);
@@ -167,6 +217,9 @@ void MainWindow::on_pushButton_supprimercom_clicked()
         QMessageBox::information(nullptr, QObject::tr("suppression validée"),QObject::tr("suppression de la commande effectuée.\n click cancel to exit."),QMessageBox::Cancel);
         mysystem->show();
         mysystem->showMessage(tr("notification"),tr("Suppression effectiuée avec succés"));
+        //hide();
+       // S= new class Stat(this);
+       // S.show();
     }
     else
        QMessageBox::critical(nullptr, QObject::tr("suppression non validée"),QObject::tr("suppression de la commande non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
@@ -362,3 +415,210 @@ void MainWindow::on_pushButton_rechercherPlat_clicked()
 
 
 
+void MainWindow::on_pushButton_statCom_clicked()
+{
+    S.make();
+    S.show();
+}
+
+
+/*
+void liv::on_checkBox_7_clicked()
+{
+    if(ui->checkBox_7->isChecked())
+    {
+        ui->tabFour->setTabText(0,"ADD");
+        ui->tabFour->setTabText(1,"DISPLAY");
+        ui->ajouterFour->setText(tr("ADD"));
+        ui->chercherFour->setText(tr("RESEARCH"));
+        ui->label_gestionDesFour->setText(tr("Management Of Suppliers"));
+        ui->lineEdit_nom->setText(tr("SURNAME"));
+        ui->lineEdit_idFour->setText(tr("ID"));
+        ui->lineEdit_modifierId->setText(tr("ID"));
+        ui->lineEdit_modifierNom->setText(tr("SURNAME"));
+        ui->lineEdit_modifierPrenom->setText(tr("NAME"));
+        ui->lineEdit_numTel->setText(tr("Phone num"));
+        ui->pushButton_imprimerFour->setText(tr("PRINT"));
+        ui->pushButton_modifierFour->setText(("UPDATE"));
+        ui->supprimerFour->setText(tr("DELETE"));
+        ui->radioButton->setText(tr("refresh"));
+        ui->label->setText(tr("sort by name"));
+        ui->label_2->setText(tr("sort by id"));
+        ui->lineEdit_suppidFour->setText(tr("ID /CIN/ NAME"));
+        ui->goToLiv->setText(tr("Delivery Management"));
+        ui->lineEdit_prenom->setText(tr("NAME"));
+        ui->lineEdit_emailFour->setText(tr("E-mail"));
+        ui->lineEdit_modifierEmail->setText(tr("E-mail"));
+        ui->lineEdit_modifierCin->setText(tr("CIN"));
+        ui->lineEdit_cinPerso->setText(tr("CIN"));
+        ui->pushButton->setText(tr("ON"));
+        ui->pushButton_2->setText(tr("OFF"));
+        ui->lineEdit_modifierNum->setText(tr("Phone num"));
+        ui->checkBox_7->setText(tr("Frensh Version"));
+    }
+
+else
+        {
+            ui->tabFour->setTabText(0,"AJOUTER");
+            ui->tabFour->setTabText(1,"AFFICHER");
+            ui->ajouterFour->setText(tr("AJOUTER"));
+            ui->chercherFour->setText(tr("CHERCHER"));
+            ui->label_gestionDesFour->setText(tr("Gestion Des Fournisseurs"));
+            ui->lineEdit_nom->setText(tr("NOM"));
+            ui->lineEdit_idFour->setText(tr("ID"));
+            ui->lineEdit_modifierId->setText(tr("ID"));
+            ui->lineEdit_modifierNom->setText(tr("NOM"));
+            ui->lineEdit_modifierPrenom->setText(tr("PRENOM"));
+            ui->lineEdit_numTel->setText(tr("numTel"));
+            ui->pushButton_imprimerFour->setText(tr("IMPRIMER"));
+            ui->pushButton_modifierFour->setText(("MODIFIER"));
+            ui->supprimerFour->setText(tr("SUPPRIMER"));
+            ui->radioButton->setText(tr("actualiser"));
+            ui->label->setText(tr("tri par nom"));
+            ui->label_2->setText(tr("tri par id"));
+            ui->lineEdit_suppidFour->setText(tr("ID /CIN/ NOM"));
+            ui->goToLiv->setText(tr("Gestion De Livraison"));
+            ui->lineEdit_prenom->setText(tr("PRENOM"));
+            ui->lineEdit_emailFour->setText(tr("E-mail"));
+            ui->lineEdit_modifierEmail->setText(tr("E-mail"));
+            ui->lineEdit_modifierCin->setText(tr("CIN"));
+            ui->lineEdit_cinPerso->setText(tr("CIN"));
+            ui->pushButton->setText(tr("ON"));
+            ui->pushButton_2->setText(tr("OFF"));
+            ui->lineEdit_modifierNum->setText(tr("NumTel"));
+            ui->checkBox_7->setText(tr("Version Anglais"));
+
+
+        }
+
+
+
+    }*/
+
+
+void MainWindow::on_checkBox_traduction_clicked()
+{
+    if(ui->checkBox_traduction->isChecked())
+    {
+        ui->pushButton_ajoutercom->setText(tr("Add"));
+        ui->pushButton_ajouterplat->setText(tr("Add"));
+        ui->pushButton_annulerCom->setText(tr("Cancel"));
+        ui->pushButton_annulerPlat->setText(tr("Cancel"));
+        ui->pushButton_imprimerCom->setText(tr("Print"));
+        ui->pushButton_imprimerPlat->setText(tr("Print"));
+        ui->pushButton_modifierCom->setText(tr("Modify"));
+        ui->pushButton_modifierPlat->setText(tr("Modify"));
+        ui->pushButton_rechercherCom->setText(tr("Search"));
+        ui->pushButton_rechercherPlat->setText(tr("Search"));
+        ui->pushButton_statCom->setText(tr("Statistic"));
+        ui->pushButton_supprimercom->setText(tr("Remove"));
+        ui->pushButton_supprimerplat->setText(tr("Remove"));
+        ui->pushButton_vaModificationCom->setText(tr("Validate the modification"));
+        ui->pushButton_vaModificationPlat->setText(tr("Validate the modification"));
+        ui->label_afficherCom->setText(tr("Display orders"));
+        ui->label_afficherPlat->setText(tr("Display dishs"));
+        ui->label_ajouterCom->setText(tr("Add an order"));
+        ui->label_ajouterPlat->setText(tr("Add a dish"));
+        ui->label_dateCom->setText(tr("Date"));
+        ui->label_dateCom_2->setText(tr("Date"));
+        ui->label_descriptionPlat->setText(tr("Description"));
+        ui->label_descriptionPlat_2->setText(tr("Description"));
+        ui->label_idClientB->setText(tr("Customer id"));
+        ui->label_idClientB_2->setText(tr("Customer id"));
+        ui->label_idCom->setText(tr("Order id"));
+        ui->label_idComSupp->setText(tr("Order id"));
+        ui->label_idCom_2->setText(tr("Order id"));
+        ui->label_idPlat->setText(tr("Dish id"));
+        ui->label_idPlatB_2->setText(tr("Dish id"));
+        ui->label_idPlatSupp->setText(tr("Dish id"));
+        ui->label_idPlat_2->setText(tr("Dish id"));
+        ui->label_idStaffB_2->setText(tr("Staff id"));
+        ui->label_idTableB->setText(tr("Table id"));
+        ui->label_idTableB_2->setText(tr("Table id"));
+        ui->label_idplatB->setText(tr("Dish id"));
+        ui->label_idstaffB->setText(tr("Staff id"));
+        ui->label_nomPlat->setText(tr("Dish name"));
+        ui->label_nomPlat_2->setText(tr("Dish name"));
+        ui->label_prixPlat->setText(tr("Dish price"));
+        ui->label_prixPlat_2->setText(tr("Dish price"));
+        ui->label_typeCom->setText(tr("Order type"));
+        ui->label_typeCom_2->setText(tr("Order type"));
+        ui->radioButton_TriedesPlat->setText(tr("Sort description"));
+        ui->radioButton_triedateCom->setText(tr("sort date"));
+        ui->radioButton_trieidstaff->setText(tr("Sort staff id"));
+        ui->radioButton_trienomPlat->setText(tr("Sort dish name"));
+        ui->radioButton_trieprixPlat->setText(tr("Sort dish price"));
+        ui->radioButton_trietypeCom->setText(tr("Sort order type"));
+        ui->checkBox_traduction->setText(tr("Frensh Version"));
+
+    }
+    else
+    {
+        ui->pushButton_ajoutercom->setText(tr("Ajouter"));
+        ui->pushButton_ajouterplat->setText(tr("Ajouter"));
+        ui->pushButton_annulerCom->setText(tr("Annuler"));
+        ui->pushButton_annulerPlat->setText(tr("Annuler"));
+        ui->pushButton_imprimerCom->setText(tr("Imprimer"));
+        ui->pushButton_imprimerPlat->setText(tr("Imprimer"));
+        ui->pushButton_modifierCom->setText(tr("Modifier"));
+        ui->pushButton_modifierPlat->setText(tr("Modifier"));
+        ui->pushButton_rechercherCom->setText(tr("Recherche"));
+        ui->pushButton_rechercherPlat->setText(tr("Recherche"));
+        ui->pushButton_statCom->setText(tr("Statistique"));
+        ui->pushButton_supprimercom->setText(tr("Supprimer"));
+        ui->pushButton_supprimerplat->setText(tr("Supprimer"));
+        ui->pushButton_vaModificationCom->setText(tr("Valider la modification"));
+        ui->pushButton_vaModificationPlat->setText(tr("Valider la modification"));
+        ui->label_afficherCom->setText(tr("Afficher les commandes"));
+        ui->label_afficherPlat->setText(tr("Afficher les plats"));
+        ui->label_ajouterCom->setText(tr("Ajouter une commande"));
+        ui->label_ajouterPlat->setText(tr("Ajouter un plat"));
+        ui->label_dateCom->setText(tr("Date"));
+        ui->label_dateCom_2->setText(tr("Date"));
+        ui->label_descriptionPlat->setText(tr("Description"));
+        ui->label_descriptionPlat_2->setText(tr("Description"));
+        ui->label_idClientB->setText(tr("Id client"));
+        ui->label_idClientB_2->setText(tr("Id client"));
+        ui->label_idCom->setText(tr("Id commande"));
+        ui->label_idComSupp->setText(tr("Id commande"));
+        ui->label_idCom_2->setText(tr("Id commande"));
+        ui->label_idPlat->setText(tr("Id plat"));
+        ui->label_idPlatB_2->setText(tr("Id plat"));
+        ui->label_idPlatSupp->setText(tr("Id plat"));
+        ui->label_idPlat_2->setText(tr("Id plat"));
+        ui->label_idStaffB_2->setText(tr("Id personnel"));
+        ui->label_idTableB->setText(tr("Id table"));
+        ui->label_idTableB_2->setText(tr("Id table"));
+        ui->label_idplatB->setText(tr("Id plat"));
+        ui->label_idstaffB->setText(tr("Id personnel"));
+        ui->label_nomPlat->setText(tr("Nom du plat"));
+        ui->label_nomPlat_2->setText(tr("Nom du Plat"));
+        ui->label_prixPlat->setText(tr("Prix du plat"));
+        ui->label_prixPlat_2->setText(tr("Prix du plat"));
+        ui->label_typeCom->setText(tr("Type de commande"));
+        ui->label_typeCom_2->setText(tr("Type de commande"));
+        ui->radioButton_TriedesPlat->setText(tr("Trier description"));
+        ui->radioButton_triedateCom->setText(tr("Trier date"));
+        ui->radioButton_trieidstaff->setText(tr("Trier id personnel"));
+        ui->radioButton_trienomPlat->setText(tr("Trier nom du plat"));
+        ui->radioButton_trieprixPlat->setText(tr("Trier prix du plat"));
+        ui->radioButton_trietypeCom->setText(tr("Trier type de commande"));
+        ui->checkBox_traduction->setText(tr("Version anglaise"));
+        //ui->Commande->setWindowIconName(tr("Order"));
+    }
+}
+
+//arduino
+
+void MainWindow::update_label()
+{
+    data=A.read_from_arduino();
+    if(data == "1")
+    {
+        ui->label_afficherCom->setText("la commande est envoyée");
+    }
+    else if (data == "0")
+    {
+        ui->label_afficherCom->setText("la commande n'est pas envoyée");
+    }
+}

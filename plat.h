@@ -38,6 +38,7 @@ public:
     QSqlQueryModel * trier_platDescription();
     QSqlQueryModel * trier_platPrix();
     QSqlQueryModel * rechercher_plat(const QString &b);
+    QSqlQueryModel * rechercher_plat2();
 };
 
 #endif // PLAT_H

@@ -8,6 +8,7 @@ QT       += core gui sql
 QT       += core gui printsupport
 QT       +=multimedia
 QT       +=charts
+QT       +=serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Atelier_Connexion
@@ -27,23 +28,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
     commande.cpp \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
     plat.cpp \
-    stat.cpp
+    statistique.cpp
 
 HEADERS += \
+    arduino.h \
     commande.h \
         mainwindow.h \
     connection.h \
     plat.h \
-    stat.h
+    statistique.h
 
 FORMS += \
         mainwindow.ui \
-        stat.ui
+        statistique.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

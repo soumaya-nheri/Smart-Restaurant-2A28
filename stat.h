@@ -18,7 +18,7 @@ class Stat : public QWidget
 
 public:
     explicit Stat(QWidget *parent = nullptr);
-    void make();
+    void made();
 
     ~Stat();
 

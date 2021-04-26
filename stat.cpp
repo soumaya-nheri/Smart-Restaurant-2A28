@@ -17,7 +17,7 @@ Stat::~Stat()
 
 
 
-void Stat::make()
+void Stat::made()
 {
          int regio;
         int non_regio;
@@ -47,8 +47,8 @@ void Stat::make()
         non_regionale=QString::number(non_regio);
         QPieSeries *series;
          series= new  QPieSeries();
-         series->append("regionale"+regionale+"%",regio);
-         series->append("non regionale"+non_regionale+"%",non_regio);
+         series->append("livraison"+regionale+"%",regio);
+         series->append("sur place"+non_regionale+"%",non_regio);
          QPieSlice *slice0 = series->slices().at(0);
           slice0->setLabelVisible();
 

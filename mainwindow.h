@@ -6,9 +6,10 @@
 #include<QMediaPlayer>
 #include "commande.h"
 #include "plat.h"
-#include"stat.h"
+#include"statistique.h"
 #include<QLineEdit>
 #include <QSystemTrayIcon>
+#include"arduino.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -64,6 +65,11 @@ private slots:
 
     void on_pushButton_rechercherPlat_clicked();
 
+    void on_pushButton_statCom_clicked();
+
+    void on_checkBox_traduction_clicked();
+
+    void update_label();
 private:
     Ui::MainWindow *ui;
     Commande Com;
@@ -71,9 +77,11 @@ private:
     QMediaPlayer *click;
     QMediaPlayer *music;
     QTabWidget * tab;
-    stat S;
+    Statistique S;
     QSystemTrayIcon *mysystem;
-    //QPropertyAnimation * animation;
+    QPropertyAnimation * animation;
+    QString data;
+    Arduino A;
 
 };
 #endif // MAINWINDOW_H

@@ -141,3 +141,10 @@ QSqlQueryModel * Plat::rechercher_plat(const QString &b)
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("PRIX_PLAT"));
     return model;
 }
+
+QSqlQueryModel * Plat::rechercher_plat2()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT NOM_PLAT FROM PLATS");
+    return model;
+}

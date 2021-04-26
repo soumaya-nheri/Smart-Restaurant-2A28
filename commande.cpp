@@ -1,5 +1,7 @@
 #include "commande.h"
 #include"QString"
+#include<QSqlRecord>
+#include<QDebug>
 Commande::Commande()
 {
     ID_COM="";
@@ -107,6 +109,21 @@ bool Commande:: Ajouter_commande()
     return query.exec();
 }
 
+QString Commande:: afficher()
+{
+    int i;
+    QSqlQueryModel  model;
+    QString name;
+    model.setQuery("SELECT * FROM  PLATS P INNER JOIN COMMANDES C ON C.ID_PLAT=P.ID_PLAT");
+    for(i=0; i<model.rowCount();i++)
+   {
+        name = model.record(i).value("NOM_PLAT").toString();
+        qDebug() << name;
+    }
+    return name;
+
+}
+
 QSqlQueryModel * Commande:: Afficher_commande()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
@@ -120,7 +137,7 @@ QSqlQueryModel * Commande:: Afficher_commande()
     model->setHeaderData(6,Qt::Horizontal,QObject::tr("ID_TABLE"));
     return model;
 }
- QSqlQueryModel * Commande::behija()
+ QSqlQueryModel * Commande::rechercher_com()
  {
      QSqlQueryModel * model=new QSqlQueryModel();
      model->setQuery("SELECT TYPE_COM FROM COMMANDES");

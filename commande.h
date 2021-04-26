@@ -19,6 +19,7 @@ private :
     QString ID_CLIENT;
     QString ID_PLAT;
     QString ID_TABLE;
+    QString i[2][5];
 
 public:
     Commande();
@@ -51,7 +52,8 @@ public:
     QSqlQueryModel * rechercher_commande(const QString &b);
     QSqlQueryModel * Stat_commande();
     QSqlQueryModel * Stat_commandeStaff();
-    QSqlQueryModel * behija();
+    QSqlQueryModel * rechercher_com();
+    QString afficher();
 };
 
 #endif // COMMANDE_H
