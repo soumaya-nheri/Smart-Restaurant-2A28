@@ -11,6 +11,7 @@ Statistique::Statistique(QWidget *parent) :
     ui(new Ui::Statistique)
 {
     ui->setupUi(this);
+
 }
 
 Statistique::~Statistique()
@@ -68,5 +69,6 @@ void Statistique::make()
          chartView->setRenderHint(QPainter::Antialiasing);
          ui->verticalLayout->addWidget(chartView);
 
+
 }
-//verticalLayout
+

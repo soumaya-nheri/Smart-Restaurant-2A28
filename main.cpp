@@ -1,9 +1,10 @@
 #include "mainwindow.h"
+#include "connection.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QApplication>
-#include "connection.h"
 #include <QSqlDatabase>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

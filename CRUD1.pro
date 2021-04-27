@@ -34,7 +34,6 @@ SOURCES += \
         mainwindow.cpp \
     connection.cpp \
     plat.cpp \
-    statistique.cpp
 
 HEADERS += \
     arduino.h \
@@ -42,11 +41,9 @@ HEADERS += \
         mainwindow.h \
     connection.h \
     plat.h \
-    statistique.h
 
 FORMS += \
-        mainwindow.ui \
-        statistique.ui
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -9,6 +9,8 @@
 #include<QSqlQuery>
 #include<QSqlQueryModel>
 #include <QSqlDatabase>
+#include<QSqlRecord>
+#include<QDebug>
 class Commande
 {
 private :

@@ -1,6 +1,5 @@
 #include "connection.h"
-#include<QDebug>
-#include<QMessageBox>
+
 
 Connection::Connection(){}
 

@@ -33,7 +33,7 @@ int Arduino::connect_arduino()
         }
         return 1;
     }
-
+    return (-1);
 }
 int Arduino::close_arduino()
 {
@@ -44,11 +44,14 @@ int Arduino::close_arduino()
     }
     return 1;
 }
+
 int Arduino::write_to_arduino(QString d)
 {
+
+    QByteArray donnee = d.toUtf8();
     if(serial->isWritable())
     {
-        //serial->write(d);
+        serial->write(donnee);
     }
     else
     {

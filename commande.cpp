@@ -1,7 +1,4 @@
 #include "commande.h"
-#include"QString"
-#include<QSqlRecord>
-#include<QDebug>
 Commande::Commande()
 {
     ID_COM="";

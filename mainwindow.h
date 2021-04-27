@@ -1,15 +1,31 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include<QPropertyAnimation>
-#include<QMediaPlayer>
+
 #include "commande.h"
 #include "plat.h"
-#include"statistique.h"
-#include<QLineEdit>
-#include <QSystemTrayIcon>
 #include"arduino.h"
+#include <QMainWindow>
+#include<QPropertyAnimation> //animation
+#include<QMediaPlayer> //music
+#include<QLineEdit>
+#include <QApplication>
+#include <QMessageBox>
+#include <QString>
+#include<QSqlQuery>
+#include<QSqlQueryModel>
+#include<QWidget>
+#include<QTabWidget>
+#include<QFileSystemModel>
+#include <QSystemTrayIcon> //notification
+#include<QtPrintSupport/QPrinter> //imprimer
+#include<QtPrintSupport/QPrintDialog> //imprimer
+#include<QCompleter> //recherche completer
+#include<QSqlRecord>
+#include<QtCharts> //stat
+#include<QChartView> //stat
+#include<QPieSeries> //stat
+#include<QPieSlice> //stat
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -23,6 +39,12 @@ public:
     ~MainWindow();
 
 private slots:
+
+    void on_checkBox_traduction_clicked();
+
+//arduino
+    void update_label();
+
 //commandes
     void on_pushButton_ajoutercom_clicked();
 
@@ -43,6 +65,8 @@ private slots:
     void on_radioButton_trieidstaff_clicked();
 
     void on_pushButton_imprimerCom_clicked();
+
+    void on_pushButton_statCom_clicked();
 
 //plats
     void on_pushButton_ajouterplat_clicked();
@@ -65,23 +89,20 @@ private slots:
 
     void on_pushButton_rechercherPlat_clicked();
 
-    void on_pushButton_statCom_clicked();
 
-    void on_checkBox_traduction_clicked();
 
-    void update_label();
+
 private:
     Ui::MainWindow *ui;
     Commande Com;
     Plat P;
-    QMediaPlayer *click;
-    QMediaPlayer *music;
+    QMediaPlayer *click; //music
+    QMediaPlayer *music; //music
     QTabWidget * tab;
-    Statistique S;
-    QSystemTrayIcon *mysystem;
-    QPropertyAnimation * animation;
-    QString data;
-    Arduino A;
+    QSystemTrayIcon *mysystem; //notification
+    QPropertyAnimation * animation; //animation
+    QByteArray data; //arduino donnee reçu
+    Arduino A; //arduino
 
 };
 #endif // MAINWINDOW_H

@@ -1,21 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "commande.h"
-#include "plat.h"
-#include <QApplication>
-#include <QMessageBox>
-#include <QString>
-#include<QSqlQuery>
-#include<QSqlQueryModel>
-#include<QWidget>
-#include<QtPrintSupport/QPrinter>
-#include<QtPrintSupport/QPrintDialog>
-#include<QPropertyAnimation>
-#include<QMediaPlayer>
-#include<QTabWidget>
-#include<QCompleter>
-#include<QFileSystemModel>
-#include<QSqlRecord>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -217,9 +202,7 @@ void MainWindow::on_pushButton_supprimercom_clicked()
         QMessageBox::information(nullptr, QObject::tr("suppression validée"),QObject::tr("suppression de la commande effectuée.\n click cancel to exit."),QMessageBox::Cancel);
         mysystem->show();
         mysystem->showMessage(tr("notification"),tr("Suppression effectiuée avec succés"));
-        //hide();
-       // S= new class Stat(this);
-       // S.show();
+
     }
     else
        QMessageBox::critical(nullptr, QObject::tr("suppression non validée"),QObject::tr("suppression de la commande non effectuée.\n click cancel to exit."),QMessageBox::Cancel);
@@ -417,83 +400,57 @@ void MainWindow::on_pushButton_rechercherPlat_clicked()
 
 void MainWindow::on_pushButton_statCom_clicked()
 {
-    S.make();
-    S.show();
+    int regio;
+   int non_regio;
+   int total;
+   QString regionale;
+   QString non_regionale;
+   QSqlQuery q;
+
+   q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='livraison' ");
+   q.exec();
+   q.first() ;
+   regio=(q.value(0).toInt());
+
+   q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='sur place' ");
+   q.exec();
+   q.first() ;
+   non_regio=(q.value(0).toInt());
+
+   q.prepare("SELECT COUNT(id_com) FROM commandes ");
+   q.exec();
+   q.first() ;
+   total=(q.value(0).toInt());
+
+   regio=((double)regio/(double)total)*100;
+   non_regio=100-regio;
+
+   regionale= QString::number(regio);
+   non_regionale=QString::number(non_regio);
+   QPieSeries *series;
+    series= new  QPieSeries();
+    series->append("livraison"+regionale+"%",regio);
+    series->append("sur place"+non_regionale+"%",non_regio);
+    QPieSlice *slice0 = series->slices().at(0);
+     slice0->setLabelVisible();
+
+     QPieSlice *slice1 = series->slices().at(1);
+        slice1->setExploded();
+        slice1->setLabelVisible();
+        slice1->setPen(QPen(Qt::green, 3));
+        slice1->setBrush(Qt::darkYellow);
+
+         QChart *chart = new QChart();
+         chart->addSeries(series);
+         chart->setTitle("Statistique du type de commandes ");
+         chart->legend()->show();
+         QChartView *chartView = new QChartView(chart);
+         chartView->setRenderHint(QPainter::Antialiasing);
+         ui->verticalLayout->addWidget(chartView);
+    show();
 }
 
 
-/*
-void liv::on_checkBox_7_clicked()
-{
-    if(ui->checkBox_7->isChecked())
-    {
-        ui->tabFour->setTabText(0,"ADD");
-        ui->tabFour->setTabText(1,"DISPLAY");
-        ui->ajouterFour->setText(tr("ADD"));
-        ui->chercherFour->setText(tr("RESEARCH"));
-        ui->label_gestionDesFour->setText(tr("Management Of Suppliers"));
-        ui->lineEdit_nom->setText(tr("SURNAME"));
-        ui->lineEdit_idFour->setText(tr("ID"));
-        ui->lineEdit_modifierId->setText(tr("ID"));
-        ui->lineEdit_modifierNom->setText(tr("SURNAME"));
-        ui->lineEdit_modifierPrenom->setText(tr("NAME"));
-        ui->lineEdit_numTel->setText(tr("Phone num"));
-        ui->pushButton_imprimerFour->setText(tr("PRINT"));
-        ui->pushButton_modifierFour->setText(("UPDATE"));
-        ui->supprimerFour->setText(tr("DELETE"));
-        ui->radioButton->setText(tr("refresh"));
-        ui->label->setText(tr("sort by name"));
-        ui->label_2->setText(tr("sort by id"));
-        ui->lineEdit_suppidFour->setText(tr("ID /CIN/ NAME"));
-        ui->goToLiv->setText(tr("Delivery Management"));
-        ui->lineEdit_prenom->setText(tr("NAME"));
-        ui->lineEdit_emailFour->setText(tr("E-mail"));
-        ui->lineEdit_modifierEmail->setText(tr("E-mail"));
-        ui->lineEdit_modifierCin->setText(tr("CIN"));
-        ui->lineEdit_cinPerso->setText(tr("CIN"));
-        ui->pushButton->setText(tr("ON"));
-        ui->pushButton_2->setText(tr("OFF"));
-        ui->lineEdit_modifierNum->setText(tr("Phone num"));
-        ui->checkBox_7->setText(tr("Frensh Version"));
-    }
-
-else
-        {
-            ui->tabFour->setTabText(0,"AJOUTER");
-            ui->tabFour->setTabText(1,"AFFICHER");
-            ui->ajouterFour->setText(tr("AJOUTER"));
-            ui->chercherFour->setText(tr("CHERCHER"));
-            ui->label_gestionDesFour->setText(tr("Gestion Des Fournisseurs"));
-            ui->lineEdit_nom->setText(tr("NOM"));
-            ui->lineEdit_idFour->setText(tr("ID"));
-            ui->lineEdit_modifierId->setText(tr("ID"));
-            ui->lineEdit_modifierNom->setText(tr("NOM"));
-            ui->lineEdit_modifierPrenom->setText(tr("PRENOM"));
-            ui->lineEdit_numTel->setText(tr("numTel"));
-            ui->pushButton_imprimerFour->setText(tr("IMPRIMER"));
-            ui->pushButton_modifierFour->setText(("MODIFIER"));
-            ui->supprimerFour->setText(tr("SUPPRIMER"));
-            ui->radioButton->setText(tr("actualiser"));
-            ui->label->setText(tr("tri par nom"));
-            ui->label_2->setText(tr("tri par id"));
-            ui->lineEdit_suppidFour->setText(tr("ID /CIN/ NOM"));
-            ui->goToLiv->setText(tr("Gestion De Livraison"));
-            ui->lineEdit_prenom->setText(tr("PRENOM"));
-            ui->lineEdit_emailFour->setText(tr("E-mail"));
-            ui->lineEdit_modifierEmail->setText(tr("E-mail"));
-            ui->lineEdit_modifierCin->setText(tr("CIN"));
-            ui->lineEdit_cinPerso->setText(tr("CIN"));
-            ui->pushButton->setText(tr("ON"));
-            ui->pushButton_2->setText(tr("OFF"));
-            ui->lineEdit_modifierNum->setText(tr("NumTel"));
-            ui->checkBox_7->setText(tr("Version Anglais"));
-
-
-        }
-
-
-
-    }*/
 
 
 void MainWindow::on_checkBox_traduction_clicked()
