@@ -13,7 +13,7 @@
     Yassine KHANFIR
   
   Trello :
-    https://trello.com/b/NNFMspJu/salvator
+    https://trello.com/salvatorsmartrestaurant
   
   Cahier Etudiant :
     https://docs.google.com/spreadsheets/d/1MYLbjUhnoBKE7ikJwbgyVjGkT0qXvskULZtvu0zCeXw/edit#gid=31108251
