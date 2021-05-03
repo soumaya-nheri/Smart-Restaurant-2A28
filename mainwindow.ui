@@ -1279,6 +1279,19 @@ QStatusBar
        <string>Gestion de reservations</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_gestionstaff">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>360</y>
+        <width>251</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Gestion staff</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="GestionCommandes">
      <widget class="QTabWidget" name="tabWidget_gestionBehija">
@@ -4348,6 +4361,737 @@ background-color: rgb(255, 0, 0);</string>
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="GestionStaff">
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>9</y>
+        <width>1051</width>
+        <height>651</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QTabWidget" name="tabWidget_3">
+           <property name="currentIndex">
+            <number>2</number>
+           </property>
+           <widget class="QWidget" name="tab_7">
+            <attribute name="title">
+             <string>Staff</string>
+            </attribute>
+            <widget class="QGroupBox" name="groupBox_5">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>8</y>
+               <width>331</width>
+               <height>501</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Ajouter</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_11">
+                <item>
+                 <layout class="QFormLayout" name="formLayout_3">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="iDLabel_3">
+                    <property name="text">
+                     <string>CIN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="cin_staff_2"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="nomLabel_2">
+                    <property name="text">
+                     <string>Nom</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="nom_staff_2"/>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="prNomLabel_3">
+                    <property name="text">
+                     <string>Prénom</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="prenom_staff_2"/>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="eMailLabel_2">
+                    <property name="text">
+                     <string>E-mail</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="email_staff_2"/>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="tLPhoneLabel_2">
+                    <property name="text">
+                     <string>Téléphone</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="tel_staff_2"/>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="loginLabel_2">
+                    <property name="text">
+                     <string>Login</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLineEdit" name="login_staff_2"/>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="motDePasseLabel_2">
+                    <property name="text">
+                     <string>Mot de passe</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLineEdit" name="pass_staff_2">
+                    <property name="echoMode">
+                     <enum>QLineEdit::Password</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="salaireLabel_2">
+                    <property name="text">
+                     <string>Salaire</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QLineEdit" name="salaire_staff_2"/>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="rLeLabel_3">
+                    <property name="text">
+                     <string>Rôle</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QComboBox" name="role_staff_2">
+                    <item>
+                     <property name="text">
+                      <string>Serveur</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>livreur</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Chef cuisinier</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <item>
+                   <spacer name="horizontalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="reset_staff_2">
+                    <property name="text">
+                     <string>Reset</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="ajouter_staff_2">
+                    <property name="text">
+                     <string>Ajouter</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QGroupBox" name="groupBox_6">
+             <property name="geometry">
+              <rect>
+               <x>350</x>
+               <y>10</y>
+               <width>531</width>
+               <height>501</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Afficher</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
+                  <item>
+                   <widget class="QLineEdit" name="recherche_staff_2"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="rechercher_staff_2">
+                    <property name="text">
+                     <string>Rechercher</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <item>
+                   <widget class="QTableView" name="tableView_staff_2"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_18">
+                  <item>
+                   <widget class="QPushButton" name="modifier_staff_2">
+                    <property name="text">
+                     <string>Modifier</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="supprimer_staff_2">
+                    <property name="text">
+                     <string>Supprimer</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="tab_8">
+            <attribute name="title">
+             <string>Planning</string>
+            </attribute>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>871</width>
+               <height>181</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Ajouter</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_15">
+                <item>
+                 <layout class="QFormLayout" name="formLayout_5">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="rLeLabel_4">
+                    <property name="text">
+                     <string>Employee</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="iDLabel_4">
+                    <property name="text">
+                     <string>Date</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QDateTimeEdit" name="DATE_PRESENCE_2">
+                    <property name="calendarPopup">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="prNomLabel_4">
+                    <property name="text">
+                     <string>NB Heure</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="NB_HEURE_2"/>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QComboBox" name="comboBox_2"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_19">
+                  <item>
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="text">
+                     <string>envoyer mail</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="reset_planning_2">
+                    <property name="text">
+                     <string>Reset</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="ajouter_planning_2">
+                    <property name="text">
+                     <string>Ajouter</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>190</y>
+               <width>871</width>
+               <height>321</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Afficher</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_17">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_20"/>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_21">
+                  <item>
+                   <widget class="QTableView" name="tableView_planning_2"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_22">
+                  <item>
+                   <widget class="QPushButton" name="modifier_planning_2">
+                    <property name="text">
+                     <string>Export PDF planning</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="supprimer_planning_2">
+                    <property name="text">
+                     <string>Supprimer</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="tab_2">
+            <attribute name="title">
+             <string>Conge</string>
+            </attribute>
+            <widget class="QGroupBox" name="ajout_conge_2">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>361</width>
+               <height>301</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Ajouter Un Congé</string>
+             </property>
+             <widget class="QLabel" name="label_15">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>40</y>
+                <width>101</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Num De Congé :</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEditNumConge_2">
+              <property name="geometry">
+               <rect>
+                <x>150</x>
+                <y>40</y>
+                <width>191</width>
+                <height>21</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_16">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>80</y>
+                <width>101</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Nom Employé :</string>
+              </property>
+             </widget>
+             <widget class="QDateEdit" name="dateEditDebut_2">
+              <property name="geometry">
+               <rect>
+                <x>149</x>
+                <y>120</y>
+                <width>191</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+              <property name="date">
+               <date>
+                <year>2021</year>
+                <month>4</month>
+                <day>8</day>
+               </date>
+              </property>
+             </widget>
+             <widget class="QDateEdit" name="dateEditFin_2">
+              <property name="geometry">
+               <rect>
+                <x>149</x>
+                <y>160</y>
+                <width>191</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+              <property name="date">
+               <date>
+                <year>2021</year>
+                <month>5</month>
+                <day>1</day>
+               </date>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_17">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>101</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Date De Début :</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_18">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>160</y>
+                <width>101</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Date De Fin :</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_19">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>200</y>
+                <width>101</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Type De Congé :</string>
+              </property>
+             </widget>
+             <widget class="QComboBox" name="comboBoxType_2">
+              <property name="geometry">
+               <rect>
+                <x>150</x>
+                <y>200</y>
+                <width>191</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <item>
+               <property name="text">
+                <string>CONGE PAYE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string> CONGE ANNUEL</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>CONGE MALADIE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>CONGE MATERNITE</string>
+               </property>
+              </item>
+             </widget>
+             <widget class="QPushButton" name="ajouter_2">
+              <property name="geometry">
+               <rect>
+                <x>260</x>
+                <y>260</y>
+                <width>80</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Ajouter</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="viderCases_2">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>260</y>
+                <width>101</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Vider Les Cases</string>
+              </property>
+             </widget>
+             <widget class="QComboBox" name="comboBox_employe_2">
+              <property name="geometry">
+               <rect>
+                <x>150</x>
+                <y>80</y>
+                <width>191</width>
+                <height>22</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+            <widget class="QGroupBox" name="consulter_conge_2">
+             <property name="geometry">
+              <rect>
+               <x>380</x>
+               <y>10</y>
+               <width>621</width>
+               <height>471</height>
+              </rect>
+             </property>
+             <property name="title">
+              <string>Consulter Les Congés</string>
+             </property>
+             <widget class="QPushButton" name="pushButtonSuppr_2">
+              <property name="geometry">
+               <rect>
+                <x>390</x>
+                <y>440</y>
+                <width>80</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Supprimer</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pushButtonEdit_2">
+              <property name="geometry">
+               <rect>
+                <x>300</x>
+                <y>440</y>
+                <width>80</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Modifier</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pushButtonPDF_3">
+              <property name="geometry">
+               <rect>
+                <x>30</x>
+                <y>440</y>
+                <width>80</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Exporter PDF</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="line_recherche_critere_2">
+              <property name="geometry">
+               <rect>
+                <x>70</x>
+                <y>40</y>
+                <width>311</width>
+                <height>21</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pushButtonRechercherConge_2">
+              <property name="geometry">
+               <rect>
+                <x>400</x>
+                <y>40</y>
+                <width>80</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Rechercher</string>
+              </property>
+             </widget>
+             <widget class="QRadioButton" name="radioButton_nom_2">
+              <property name="geometry">
+               <rect>
+                <x>260</x>
+                <y>70</y>
+                <width>84</width>
+                <height>19</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>nom</string>
+              </property>
+             </widget>
+             <widget class="QRadioButton" name="radioButton_ID_2">
+              <property name="geometry">
+               <rect>
+                <x>350</x>
+                <y>70</y>
+                <width>71</width>
+                <height>19</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>id</string>
+              </property>
+             </widget>
+             <widget class="QTableView" name="tableViewConge_2">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>100</y>
+                <width>481</width>
+                <height>331</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -4356,7 +5100,7 @@ background-color: rgb(255, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>1073</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

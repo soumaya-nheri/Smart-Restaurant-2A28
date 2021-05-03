@@ -15,8 +15,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    conge.cpp \
+    database.cpp \
+    home.cpp \
     main.cpp \
     mainwindow.cpp \
+    mainwindow0.cpp \
+    planning.cpp \
     plat.cpp \
     commande.cpp \
     connection.cpp \
@@ -26,12 +31,18 @@ SOURCES += \
     modifierres.cpp \
     modifiertab.cpp \
     smtp.cpp \
+    staff.cpp \
     supprimerres.cpp \
     supprimertab.cpp \
     tables.cpp
 
 HEADERS += \
+    conge.h \
+    database.h \
+    home.h \
     mainwindow.h \
+    mainwindow0.h \
+    planning.h \
     plat.h \
     commande.h \
     connection.h \
@@ -41,6 +52,7 @@ HEADERS += \
     modifierres.h \
     modifiertab.h \
     smtp.h \
+    staff.h \
     supprimerres.h \
     supprimertab.h \
     tables.h
@@ -50,6 +62,7 @@ FORMS += \
     mainwindow.ui \
     ajouterres.ui \
     ajoutertab.ui \
+    mainwindow0.ui \
     modifierres.ui \
     modifiertab.ui \
     supprimerres.ui \
@@ -59,3 +72,12 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    BD.sql \
+    Click.wav \
+    SyNet.qss \
+    integration.pro.user \
+    integration.pro.user.bd35519 \
+    music.mp3 \
+    style.qss

@@ -1,4 +1,4 @@
-include "home.h"
+#include "home.h"
 
 home::home(QObject *parent)
     : QAbstractItemModel(parent)

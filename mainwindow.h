@@ -1,7 +1,25 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
+#include <QMainWindow>
+#include <QMainWindow>
+#include <QWidget>
+#include <QItemSelectionModel>
+#include <QStandardItemModel>
+#include <QMessageBox>
+#include <QRegularExpression>
+#include <QTableWidgetItem>
+#include <QDebug>
+#include <QSqlTableModel>
+#include <QAbstractItemView>
+#include <QRegExp>
+#include <QFileDialog>
+#include <QSortFilterProxyModel>
+#include <QTextDocument>
+#include <QPropertyAnimation>
+#include "database.h"
+#include "staff.h"
+#include "planning.h"
 #include"client.h"
 #include"tables.h"
 #include "commande.h"
@@ -103,8 +121,6 @@ private slots:
 
     void on_pushButton_supprimertab_2_clicked();
 
-
-
     void on_pushButton_cherchertab_2_clicked();
 
     void on_pushButton_table_2_clicked();
@@ -125,32 +141,51 @@ private slots:
 
     void on_radioButton_trinom_2_clicked();
 
-
-
     void on_pushButton_chercherres_2_clicked();
 
     void on_pushButton_res_2_clicked();
 
     void on_sendBtn_3_clicked();
 
+    void on_ajouter_staff_2_clicked();
 
+    void on_modifier_staff_2_clicked();
 
+    void on_supprimer_staff_2_clicked();
 
+    void on_ajouter_2_clicked();
 
+    void on_pushButtonSuppr_2_clicked();
 
+    void on_pushButtonEdit_2_clicked();
 
+    void on_pushButtonPDF_3_clicked();
+
+    void on_rechercher_staff_2_clicked();
+
+    void on_ajouter_planning_2_clicked();
+
+    void on_recherche_staff_2_textChanged(const QString &arg1);
+
+    void on_pushButtonRechercherConge_2_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_supprimer_planning_2_clicked();
 
     void on_pushButton_gestioncom_clicked();
 
     void on_pushButton_gestionres_clicked();
-
-
 
     void on_pushButton_retourCom_clicked();
 
     void on_pushButton_retour_3_clicked();
 
     void on_pushButton_retour_6_clicked();
+
+    void on_pushButton_gestionstaff_clicked();
+
+    void on_tableViewConge_2_activated(const QModelIndex &index);
 
 private:
 Ui::MainWindow *ui;
@@ -164,5 +199,9 @@ Ui::MainWindow *ui;
     Client tempclient;
     QStringList files;
     Tables temptable;
+    staff tmpstaff;
+    planning tmplanning;
+    QSqlQuery qry,qry1;
+
 };
 #endif // MAINWINDOW_H

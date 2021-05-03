@@ -1,6 +1,6 @@
 #ifndef HOME_H
 #define HOME_H
-
+#include<mainwindow.h>
 #include <QAbstractItemModel>
 
 class home : public QAbstractItemModel
