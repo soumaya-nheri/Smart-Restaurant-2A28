@@ -8,7 +8,6 @@ Commande::Commande()
     ID_PLAT="";
     ID_TABLE="";
 }
-
 Commande::Commande(QString ID_COM,QString TYPE_COM,QDate DATE_COM,QString ID_STAFF,QString ID_CLIENT,QString ID_PLAT,QString ID_TABLE)
 {
     this->ID_COM=ID_COM;

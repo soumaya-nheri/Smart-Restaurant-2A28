@@ -20,6 +20,7 @@
 #include <QSystemTrayIcon> //notification
 #include<QtPrintSupport/QPrinter> //imprimer
 #include<QtPrintSupport/QPrintDialog> //imprimer
+#include <QPainter>
 #include<QCompleter> //recherche completer
 #include<QSqlRecord>
 #include<QtCharts> //stat
@@ -92,10 +93,13 @@ private slots:
 
 
 
+    void on_pushButton_pdf_clicked();
+
 private:
     Ui::MainWindow *ui;
     Commande Com;
     Plat P;
+    QSqlQuery qry,qry1;
     QMediaPlayer *click; //music
     QMediaPlayer *music; //music
     QTabWidget * tab;

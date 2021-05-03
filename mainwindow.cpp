@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -18,13 +17,33 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_afficherPlat->setModel(P.Afficher_plat());
 
 //Recherche Qcompleter
-    QCompleter *completerCom = new QCompleter();
-    completerCom->setModel(Com.rechercher_com());
-    ui->lineEdit_rechercherCom->setCompleter(completerCom);
 
-    QCompleter *completerPlat = new QCompleter();
-    completerPlat->setModel(P.rechercher_plat2());
-    ui->lineEdit_rechercherPlat->setCompleter(completerPlat);
+    QStringList wordList;
+
+    qry.exec("SELECT id_com, type_com, id_plat FROM commandes");
+    while(qry.next()){
+    wordList.push_back(qry.value(0).toString());
+    wordList.push_back(qry.value(1).toString());
+    wordList.push_back(qry.value(2).toString());
+    }
+    qDebug()<<wordList;
+    QCompleter *completer = new QCompleter(wordList, this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->lineEdit_rechercherCom->setCompleter(completer);
+
+    QStringList wordList1;
+
+    qry1.exec("SELECT nom_plat, description_plat, prix_plat FROM plats");
+    while(qry1.next()){
+    wordList1.push_back(qry1.value(0).toString());
+    wordList1.push_back(qry1.value(1).toString());
+    wordList1.push_back(qry1.value(2).toString());
+    }
+    qDebug()<<wordList1;
+    QCompleter *completer1 = new QCompleter(wordList1, this);
+    completer1->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->lineEdit_rechercherPlat->setCompleter(completer1);
+
 //notification
     mysystem = new QSystemTrayIcon(this);
     mysystem->setVisible(true);
@@ -69,6 +88,9 @@ MainWindow::MainWindow(QWidget *parent)
         }
         QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
 */
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -105,8 +127,57 @@ void MainWindow::on_pushButton_ajoutercom_clicked()
         ui->lineEdit_idclientB->setText("");
         ui->lineEdit_idplatB->setText("");
         ui->lineEdit_idtableB->setText("");
+    //stat
 
+        int regio;
+       int non_regio;
+       int total;
+       QString regionale;
+       QString non_regionale;
+       QSqlQuery q;
 
+       q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='livraison' ");
+       q.exec();
+       q.first() ;
+       regio=(q.value(0).toInt());
+
+       q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='sur place' ");
+       q.exec();
+       q.first() ;
+       non_regio=(q.value(0).toInt());
+
+       q.prepare("SELECT COUNT(id_com) FROM commandes ");
+       q.exec();
+       q.first() ;
+       total=(q.value(0).toInt());
+
+       regio=((double)regio/(double)total)*100;
+       non_regio=100-regio;
+
+       regionale= QString::number(regio);
+       non_regionale=QString::number(non_regio);
+       QPieSeries *series;
+        series= new  QPieSeries();
+        series->append("livraison"+regionale+"%",regio);
+        series->append("sur place"+non_regionale+"%",non_regio);
+        QPieSlice *slice0 = series->slices().at(0);
+         slice0->setLabelVisible();
+
+         QPieSlice *slice1 = series->slices().at(1);
+            slice1->setExploded();
+            slice1->setLabelVisible();
+            slice1->setPen(QPen(Qt::green, 3));
+            slice1->setBrush(Qt::darkYellow);
+
+             QChart *chart = new QChart();
+             chart->addSeries(series);
+             chart->setTitle("Statistique du type de commandes ");
+             chart->legend()->show();
+             QChartView *chartView = new QChartView(chart);
+             chartView->setRenderHint(QPainter::Antialiasing);
+             ui->verticalLayout->addWidget(chartView);
+        show();
+        ui->verticalLayout->removeWidget(chartView);
         QMessageBox::information(nullptr, QObject::tr("Ajout validé"),QObject::tr("Ajout de la commande effectué.\n click cancel to exit."),QMessageBox::Cancel);
         mysystem->show();
         mysystem->showMessage(tr("notification"),tr("Ajout effectiué avec succés"));
@@ -448,6 +519,8 @@ void MainWindow::on_pushButton_statCom_clicked()
          chartView->setRenderHint(QPainter::Antialiasing);
          ui->verticalLayout->addWidget(chartView);
     show();
+
+    ui->verticalLayout->removeWidget(chartView);
 }
 
 
@@ -578,4 +651,68 @@ void MainWindow::update_label()
     {
         ui->label_afficherCom->setText("la commande n'est pas envoyée");
     }
+}
+
+void MainWindow::on_pushButton_pdf_clicked()
+{
+    Plat P;
+        QPrinter printer;
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName("MENU3.pdf");
+        QPainter painter;
+        if(!painter.begin(&printer)){
+            qWarning("failed to open");}
+            QSqlQuery qry;
+            qry.prepare("select * from plats");
+
+                QDate date = QDate::currentDate();
+                QString dat = date.toString("dd.MM.yyyy");
+
+            printer.setPageSize(QPrinter::A4);
+            printer.setPageMargins(QMarginsF(15, 15, 15, 15));
+            painter.setPen(Qt::white);
+            painter.setFont(QFont("Times",40));
+            painter.drawPixmap(QRect(10,30,750,100),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(10,1020,750,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(50,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(150,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(250,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(350,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(450,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawPixmap(QRect(550,1020,70,70),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+
+
+            painter.drawPixmap(QRect(30,130,700,850),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.drawText(130,100,"Liste des Fournisseurs");
+            painter.drawPixmap(QRect(10,10,80,80),QPixmap("C:/Users/Behija/Desktop/Smart-Restaurant-2A28/image.png"));
+            painter.setFont(QFont("Times",15));
+            painter.setPen(Qt::black);
+             //painter.fillRect(100,150,600,600,40500);
+            painter.drawText(10,10,dat);
+            painter.drawText(100,200,"L'id");
+            painter.drawText(200,200,"Le nom du plat");
+            painter.drawText(350,200,"La description");
+
+            painter.drawText(600,200,"le prix");
+            painter.drawLine(80,250,700,250);
+            int i=0;
+            if(qry.exec())
+                {while (qry.next()){
+                QString id_plat = qry.value(0).toString();
+                QString nom_plat = qry.value(1).toString();
+                QString description_plat = qry.value(2).toString();
+                QString prix_plat = qry.value(3).toString();
+
+            painter.drawText(100,300+i,id_plat);
+            painter.drawText(200,300+i,nom_plat);
+            painter.drawText(350,300+i,description_plat);
+            painter.drawText(450,300+i,prix_plat);
+            //painter.drawRect(100,150,600,600);
+            painter.drawLine(80,350+i,700,350+i);
+            i=100+i;
+
+        }
+        }
+          painter.end();
+
 }
