@@ -19,6 +19,7 @@ SOURCES += \
     mainwindow0.cpp \
     modifierres.cpp \
     modifiertab.cpp \
+    signup.cpp \
     smtp.cpp \
     supprimerres.cpp \
     supprimertab.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     mainwindow0.h \
     modifierres.h \
     modifiertab.h \
+    signup.h \
     smtp.h \
     supprimerres.h \
     supprimertab.h \

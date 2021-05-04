@@ -1,5 +1,4 @@
 #include "client.h"
-
 Client::Client(QString CIN,QString Nom, QString Prenom,QString Mail,  QString Tel, QDate Dat)
 {
     this->CIN = CIN;
@@ -81,3 +80,4 @@ model->setHeaderData(5,Qt::Horizontal,QObject::tr("Date"));
 
 return model;
 }
+
