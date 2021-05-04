@@ -118,6 +118,7 @@ MainWindow::MainWindow(QWidget *parent)
             show();
             ui->verticalLayout->removeWidget(chartView);
     //Recherche Qcompleter
+            //behija
         QStringList wordList;
             qry.exec("SELECT id_com, type_com, id_plat FROM commandes");
             while(qry.next()){
