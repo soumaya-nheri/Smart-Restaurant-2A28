@@ -2,7 +2,7 @@
 #include "ui_ajoutertab.h"
 #include "tables.h"
 #include <QMessageBox>
-
+//aaaaaa
 ajoutertab::ajoutertab(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ajoutertab)
