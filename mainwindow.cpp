@@ -3,6 +3,14 @@
 #include "client.h"
 #include "ajouterres.h"
 #include "conge.h"
+#include "produit.h"
+#include "ajouterproduit.h"
+#include "modifierproduit.h"
+#include "supprimerproduit.h"
+#include "fournisseur.h"
+#include "ajouter_fournisseur.h"
+#include "modifier_fournisseur.h"
+#include "supprimer_fournisseur.h"
 #include <QPrinter>
 #include <QFileDialog>
 #include <smtp.h>
@@ -41,8 +49,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     conge tmpconge;
     ui->setupUi(this);
+    this->setWindowTitle("Smart Restaurant");
+    mysystem1 = new QSystemTrayIcon(this);
+    mysystem1->setVisible(true);
      ui->stackedWidget->setCurrentIndex(0);
      ui->tableView_staff_2->setModel(tmpstaff.afficher());
      QSqlQueryModel * modell = tmpconge.afficher();
@@ -62,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
         click->setMedia(QUrl::fromLocalFile("C:/Users/dedpy/Desktop/GIT-Qt/integration/Click.wav"));
         music = new QMediaPlayer();
         music->setMedia(QUrl::fromLocalFile("C:/Users/dedpy/Desktop/GIT-Qt/integration/music.mp3"));
-        music->play();
+        //music->play();
         ui->tableView_afficherCom->setModel(Com.Afficher_commande());
         ui->tableView_statCom->setModel(Com.Stat_commande());
         ui->tableView_statComStaff->setModel(Com.Stat_commandeStaff());
@@ -1899,4 +1911,205 @@ void MainWindow::on_pushButton_gestionnouv_clicked()
 {
     click->play();
     ui->stackedWidget->setCurrentIndex(4);
+}
+
+
+
+//khalil
+
+
+void MainWindow::on_pushButton_ajouterproduit_clicked()
+{
+    ajouterproduit ajouter;
+    ajouter.setModal(true);
+    ajouter.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+    mysystem1->showMessage(tr("notification"),tr("Ajout effectiué avec succés"));
+    mysystem1->show();
+
+}
+
+void MainWindow::on_pushButton_modifierproduit_clicked()
+{
+    modifierproduit modifier;
+    modifier.setModal(true);
+    modifier.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+    mysystem1->show();
+    mysystem1->showMessage(tr("notification"),tr("Modification effectiué avec succés"));
+}
+
+void MainWindow::on_pushButton_supprimerproduit_clicked()
+{
+    supprimerproduit supp;
+    supp.setModal(true);
+    supp.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+    mysystem1->show();
+    mysystem1->showMessage(tr("notification"),tr("Suppression effectiué avec succés"));
+}
+
+
+void MainWindow::on_pushButton_chercherproduit_clicked()
+{
+
+            QString id_p= ui->lineEdit->text() ;
+            ui->tableView_produit->setModel(tempproduit.recherche(id_p));
+
+
+}
+
+
+
+void MainWindow::on_pushButtonproduit_clicked()
+{
+      ui->tableView_produit->setModel(tempproduit.afficher());
+}
+
+void MainWindow::on_radioButton_pripr_clicked()
+{
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit ORDER BY prix_p");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+}
+
+void MainWindow::on_radioButton_typepr_clicked()
+{
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit ORDER BY type_p");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+}
+
+void MainWindow::on_radioButton_quantitepr_clicked()
+{
+    Connection1 conn;
+    QSqlQueryModel * modal = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from produit ORDER BY quantite_p");
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableView_produit->setModel(modal);
+}
+
+
+void MainWindow::on_pushButton_ajouter_fournisseur_clicked()
+{
+    ajouter_fournisseur ajouter;
+    ajouter.setModal(true);
+    ajouter.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal1 = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from fournisseur");
+    qry->exec();
+    modal1->setQuery(*qry);
+    ui->tableView_fournisseur->setModel(modal1);
+}
+
+void MainWindow::on_pushButton_modifier_fournisseur_clicked()
+{
+    modifier_fournisseur modifier;
+    modifier.setModal(true);
+    modifier.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal1 = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from fournisseur");
+    qry->exec();
+    modal1->setQuery(*qry);
+    ui->tableView_fournisseur->setModel(modal1);
+}
+
+void MainWindow::on_pushButton_supprimer_fournisseur_clicked()
+{
+    supprimer_fournisseur supp;
+    supp.setModal(true);
+    supp.exec();
+
+    Connection1 conn;
+    QSqlQueryModel * modal1 = new QSqlQueryModel;
+
+    QSqlQuery * qry=new QSqlQuery(conn.db1);
+    qry->prepare("select * from fournisseur");
+    qry->exec();
+    modal1->setQuery(*qry);
+    ui->tableView_fournisseur->setModel(modal1);
+
+}
+
+
+void MainWindow::on_pushButton_afficherfournisseur_clicked()
+{
+    ui->tableView_fournisseur->setModel(tempfournisseur.afficher_2());
+
+}
+
+void MainWindow::on_pushButton_imprimerproduit_clicked()
+{
+    QPrinter printer;
+     printer.setPrinterName("khalil");
+     QPrintDialog dialog(&printer, this);
+     if (dialog.exec() == QDialog::Rejected) return;
+     ui->tableView_produit->render(&printer);
+}
+
+
+
+
+
+
+
+
+void MainWindow::on_pushButton_stat_clicked()
+{
+    QString type_p= ui->lineEdit->text() ;
+    int s,n;
+    s=tempproduit.stat(type_p);
+    n=tempproduit.nbtotal();
+    ui->tableView_produit->setModel(tempproduit.statfinal(type_p));
+    //ui->label_stat->setNum((s*100)/n);
+}
+
+void MainWindow::on_pushButton_gestionstock_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
 }

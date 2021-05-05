@@ -15,13 +15,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ajouter_fournisseur.cpp \
+    ajouterproduit.cpp \
     conge.cpp \
     database.cpp \
     evenement.cpp \
+    fournisseur.cpp \
     home.cpp \
     main.cpp \
     mainwindow.cpp \
     mainwindow0.cpp \
+    modifier_fournisseur.cpp \
+    modifierproduit.cpp \
     offre.cpp \
     planning.cpp \
     plat.cpp \
@@ -32,19 +37,27 @@ SOURCES += \
     client.cpp \
     modifierres.cpp \
     modifiertab.cpp \
+    produit.cpp \
     smtp.cpp \
     staff.cpp \
+    supprimer_fournisseur.cpp \
+    supprimerproduit.cpp \
     supprimerres.cpp \
     supprimertab.cpp \
     tables.cpp
 
 HEADERS += \
+    ajouter_fournisseur.h \
+    ajouterproduit.h \
     conge.h \
     database.h \
     evenement.h \
+    fournisseur.h \
     home.h \
     mainwindow.h \
     mainwindow0.h \
+    modifier_fournisseur.h \
+    modifierproduit.h \
     offre.h \
     planning.h \
     plat.h \
@@ -55,21 +68,30 @@ HEADERS += \
     client.h \
     modifierres.h \
     modifiertab.h \
+    produit.h \
     querDefines.h \
     smtp.h \
     staff.h \
+    supprimer_fournisseur.h \
+    supprimerproduit.h \
     supprimerres.h \
     supprimertab.h \
     tables.h
 
 
 FORMS += \
+    ajouter_fournisseur.ui \
+    ajouterproduit.ui \
     mainwindow.ui \
     ajouterres.ui \
     ajoutertab.ui \
     mainwindow0.ui \
+    modifier_fournisseur.ui \
+    modifierproduit.ui \
     modifierres.ui \
     modifiertab.ui \
+    supprimer_fournisseur.ui \
+    supprimerproduit.ui \
     supprimerres.ui \
     supprimertab.ui
 
@@ -88,4 +110,5 @@ DISTFILES += \
     style.qss
 
 RESOURCES += \
+    ressources.qrc \
     ressources.qrc

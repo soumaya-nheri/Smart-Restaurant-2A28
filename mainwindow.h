@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMainWindow>
 #include <QWidget>
 #include <QItemSelectionModel>
 #include <QStandardItemModel>
@@ -26,7 +25,8 @@
 #include "offre.h"
 #include "commande.h"
 #include "plat.h"
-#include <QMainWindow>
+#include "produit.h"
+#include "fournisseur.h"
 #include<QPropertyAnimation> //animation
 #include<QMediaPlayer> //music
 #include<QLineEdit>
@@ -38,7 +38,7 @@
 #include<QWidget>
 #include<QTabWidget>
 #include<QFileSystemModel>
-#include <QSystemTrayIcon> //notification
+#include<QSystemTrayIcon> //notification
 #include<QtPrintSupport/QPrinter> //imprimer
 #include<QtPrintSupport/QPrintDialog> //imprimer
 #include<QCompleter> //recherche completer
@@ -47,6 +47,7 @@
 #include<QChartView> //stat
 #include<QPieSeries> //stat
 #include<QPieSlice> //stat
+
 class Connection1
 {
 public:
@@ -67,6 +68,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QSystemTrayIcon *mysystem1;
 
 private slots:
     void sendMail();
@@ -245,6 +247,38 @@ private slots:
 
     void on_pushButton_gestionnouv_clicked();
 
+    void on_pushButton_ajouterproduit_clicked();
+
+      void on_pushButton_modifierproduit_clicked();
+
+      void on_pushButton_supprimerproduit_clicked();
+
+      void on_pushButtonproduit_clicked();
+
+      void on_radioButton_quantitepr_clicked();
+
+      void on_radioButton_pripr_clicked();
+
+      void on_radioButton_typepr_clicked();
+
+      void on_pushButton_chercherproduit_clicked();
+
+      void on_pushButton_imprimerproduit_clicked();
+
+      void on_pushButton_ajouter_fournisseur_clicked();
+
+      void on_pushButton_modifier_fournisseur_clicked();
+
+      void on_pushButton_supprimer_fournisseur_clicked();
+
+      void on_pushButton_afficherfournisseur_clicked();
+
+      void on_pushButton_stat_clicked();
+
+
+
+      void on_pushButton_gestionstock_clicked();
+
 private:
 Ui::MainWindow *ui;
     Commande Com;
@@ -262,6 +296,8 @@ Ui::MainWindow *ui;
     staff tmpstaff;
     planning tmplanning;
     QSqlQuery qry,qry1;
+    Produit tempproduit;
+    Fournisseur tempfournisseur;
 
 };
 #endif // MAINWINDOW_H
