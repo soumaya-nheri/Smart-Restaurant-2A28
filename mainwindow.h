@@ -22,6 +22,8 @@
 #include "planning.h"
 #include"client.h"
 #include"tables.h"
+#include "evenement.h"
+#include "offre.h"
 #include "commande.h"
 #include "plat.h"
 #include <QMainWindow>
@@ -185,7 +187,63 @@ private slots:
 
     void on_pushButton_gestionstaff_clicked();
 
-    void on_tableViewConge_2_activated(const QModelIndex &index);
+    //bacim
+
+    void on_pushButtonAjouter_4_clicked();
+
+    void on_pushButtonAjouter_evenement_4_clicked();
+
+    void on_pushButtonSupprimer_4_clicked();
+
+    void on_pushButtonAjouterOffre_4_clicked();
+
+
+
+    void on_pushButtonAfficherOffre_4_clicked();
+
+    void on_pushButtonAfficher_4_clicked();
+
+
+
+    void on_pushButtonAjouter_Offre1_4_clicked();
+
+    void on_pushButtonRetour_menu_4_clicked();
+
+    void on_pushButtonSupprimer_offre_4_clicked();
+
+    void on_pushButtonRetour_17_clicked();
+
+    void on_pushButtonRetour_18_clicked();
+
+    void on_pushButtonRetour_16_clicked();
+
+    void on_pushButtonAnnuler_4_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_31_clicked();
+
+    void on_pushButton_10_clicked();
+
+    void on_pushButton_11_clicked();
+
+    void on_pushButton_29_clicked();
+
+    void on_pushButton_33_clicked();
+
+    void on_pushButton_30_clicked();
+
+    void on_pushButton_32_clicked();
+
+    void on_pushButtonRetour_4_clicked();
+
+    void on_pushButton_35_clicked();
+
+    void on_pushButton_34_clicked();
+
+    void on_pushButton_36_clicked();
+
+    void on_pushButton_gestionnouv_clicked();
 
 private:
 Ui::MainWindow *ui;
@@ -199,6 +257,8 @@ Ui::MainWindow *ui;
     Client tempclient;
     QStringList files;
     Tables temptable;
+    Evenement evenementtmp;
+    Offre offretmp;
     staff tmpstaff;
     planning tmplanning;
     QSqlQuery qry,qry1;

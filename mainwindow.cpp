@@ -26,9 +26,9 @@ bool Connection1::createconnection1()
 {
     bool test=false;
     QSqlDatabase db1 = QSqlDatabase::addDatabase("QODBC");
-    db1.setDatabaseName("smart_restaurant");//inserer le nom de la source de données ODBC
-    db1.setUserName("behija");//inserer nom de l'utilisateur
-    db1.setPassword("behija");//inserer mot de passe de cet utilisateur
+    db1.setDatabaseName("Source_Projet2A");
+    db1.setUserName("Wassim");
+    db1.setPassword("esprit18");
 
     if (db1.open())
     test=true;
@@ -118,7 +118,6 @@ MainWindow::MainWindow(QWidget *parent)
             show();
             ui->verticalLayout->removeWidget(chartView);
     //Recherche Qcompleter
-            //behija
         QStringList wordList;
             qry.exec("SELECT id_com, type_com, id_plat FROM commandes");
             while(qry.next()){
@@ -169,6 +168,46 @@ MainWindow::MainWindow(QWidget *parent)
             animation->setDuration(10000);
             animation->setStartValue(QRect(700, 500, 100, 15));
             animation->start();
+
+
+        //bacim
+            QIntValidator *roll = new QIntValidator(100000,999999);
+                ui->pushButton_10->hide();
+                ui->plainTextEdit_2->hide();
+
+                ui->lineEditId_4->setValidator(roll);
+                ui->lineEditIdOffre_4->setValidator(roll);
+                ui->tableView_7->setModel(evenementtmp.show_evenements());
+                 ui->tableView_8->setModel(offretmp.show_offres());
+                QFile file1("C:/Users/dedpy/Desktop/Historique.txt");
+               if (!file1.open(QIODevice::ReadOnly))
+               {
+                   QMessageBox::information(0,"info",file1.errorString());
+               }
+               QTextStream in (&file1);
+              ui->textBrowser_4->setText(in.readAll());
+
+                ui->tabWidget1->setCurrentIndex(0);
+                QPieSeries *series_1 = new QPieSeries();
+                    QSqlQuery qq("select prix,count(*) as nombre from evenements group by prix");
+
+
+                     while(qq.next())
+                     {series_1->append(qq.value(0).toString()+": "+qq.value(1).toString(),qq.value(1).toInt());}
+
+                    QChart *chart_1 = new QChart();
+                    chart_1->addSeries(series_1);
+                    chart_1->setTitle("Statistiques des prix des evenements");
+                    chart_1->setBackgroundBrush(Qt::transparent);
+                    QChartView *chartview_1 = new QChartView(chart);
+                    chartview_1->setRenderHint(QPainter::Antialiasing);
+                    chartview_1->setParent(ui->horizontalFrame_4);
+                    chartview_1->resize(400,300);
+
+                    chart_1->setAnimationOptions(QChart::AllAnimations);
+                    chart_1->legend()->setVisible(true);
+                    chart_1->legend()->setAlignment(Qt::AlignRight);
+                    series_1->setLabelsVisible(true);
 }
 
 MainWindow::~MainWindow()
@@ -1363,6 +1402,11 @@ void MainWindow::on_sendBtn_3_clicked()
         connect(ui->exitBtn_3, SIGNAL(clicked()),this, SLOT(close()));
         connect(ui->browseBtn_4, SIGNAL(clicked()), this, SLOT(browse()));
 
+        click->play();
+        Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
+        smtp->sendMail("Reservation", ui->subject_3->text(),ui->msg_3->toPlainText(),"test" );
+
+
 }
 
 void MainWindow::on_pushButton_mail_2_clicked()
@@ -1439,3 +1483,420 @@ void MainWindow::on_pushButton_gestionstaff_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+//nouveautes
+void MainWindow::on_pushButtonAjouter_4_clicked()
+{
+    ui->tabWidget1->setCurrentIndex(2);
+
+}
+
+void MainWindow::on_pushButtonAjouter_evenement_4_clicked()
+{
+
+
+    Evenement e(ui->lineEditId_4->text().toInt(),ui->lineEditNom_4->text(), ui->lineEditPrix_4->text().toFloat(),ui->dateEdit1_4->date().toString(),ui->textEditDescription_4->toPlainText());
+    bool test = e.add_evenement();
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+
+            QTextStream cout(&file);
+    if (test)
+
+    {
+        ui->lineEditNom_4->setText("");
+        ui->lineEditId_4->setText("");
+    ui->lineEditPrix_4->setText("");
+        ui->textEditDescription_4->setText("");
+
+       QString message2="Vous avez ajouté un evenement\n";
+            cout << message2;
+            QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+           if (!file.open(QIODevice::ReadOnly))
+           {
+               QMessageBox::information(0,"info",file.errorString());
+           }
+           QTextStream in (&file);
+          ui->textBrowser_4->setText(in.readAll());
+        QMessageBox::information(nullptr,QObject::tr("Add Evenement"),QObject::tr("Evenement ajouté avec success\n click ok to exit"),QMessageBox::Ok);
+        ui->tableView_7->setModel(evenementtmp.show_evenements());
+    }
+    else
+
+    {
+
+        QMessageBox::warning(nullptr,QObject::tr("Add Evenement"),QObject::tr("Evenement n a pas ete ajouté\n click ok to exit"),QMessageBox::Ok);
+
+    }
+}
+
+void MainWindow::on_pushButtonSupprimer_4_clicked()
+{
+    int row=ui->tableView_7->selectionModel()->currentIndex().row();
+    int id=ui->tableView_7->model()->index(row,0).data().toInt();
+    bool  test = evenementtmp.delete_evenement(id);
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+
+            QTextStream cout(&file);
+    if (test)
+
+    {
+
+
+
+   QString message2="Vous avez supprimé un evenement\n";
+        cout << message2;
+        QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+       if (!file.open(QIODevice::ReadOnly))
+       {
+           QMessageBox::information(0,"info",file.errorString());
+       }
+       QTextStream in (&file);
+      ui->textBrowser_4->setText(in.readAll());
+        QMessageBox::information(nullptr,QObject::tr("delete Evenement"),QObject::tr("Evenement supprime avec success\n click ok to exit"),QMessageBox::Ok);
+        ui->tableView_7->setModel(evenementtmp.show_evenements());
+    }
+    else
+
+    {
+        QMessageBox::warning(nullptr,QObject::tr("delete Evenement"),QObject::tr("Evenement n a pas ete supprime\n click ok to exit"),QMessageBox::Ok);
+
+    }
+
+}
+
+void MainWindow::on_pushButtonAjouterOffre_4_clicked()
+{
+     ui->tabWidget1->setCurrentIndex(3);
+}
+
+
+void MainWindow::on_pushButtonAfficherOffre_4_clicked()
+{
+    ui->tabWidget1->setCurrentIndex(4);
+}
+
+void MainWindow::on_pushButtonAfficher_4_clicked()
+{
+     ui->tabWidget1->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButtonAjouter_Offre1_4_clicked()
+{
+    Offre o(ui->lineEditIdOffre_4->text().toInt(),ui->lineEditNomOffre_4->text(), ui->lineEditPrixOffre_4->text().toDouble(),ui->textEditDescriptionOffre_4->toPlainText());
+    bool test = o.add_offre();
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+
+            QTextStream cout(&file);
+    if (test)
+
+    {
+
+
+
+
+QString message2="Vous avez ajouté un offre\n";
+cout << message2;
+QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+if (!file.open(QIODevice::ReadOnly))
+{
+   QMessageBox::information(0,"info",file.errorString());
+}
+QTextStream in (&file);
+ui->textBrowser_4->setText(in.readAll());
+        ui->lineEditNomOffre_4->setText("");
+        ui->lineEditIdOffre_4->setText("");
+    ui->lineEditPrixOffre_4->setText("");
+        ui->textEditDescriptionOffre_4->setText("");
+        QMessageBox::information(nullptr,QObject::tr("Add Offre"),QObject::tr("Offre ajouté avec success\n click ok to exit"),QMessageBox::Ok);
+        ui->tableView_8->setModel(offretmp.show_offres());
+    }
+    else
+
+    {
+        QMessageBox::warning(nullptr,QObject::tr("Add Offre"),QObject::tr("Offre n a pas ete ajouté\n click ok to exit"),QMessageBox::Ok);
+
+    }
+}
+
+
+void MainWindow::on_pushButtonRetour_menu_4_clicked()
+{
+     ui->tabWidget1->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButtonSupprimer_offre_4_clicked()
+{
+    int row=ui->tableView_8->selectionModel()->currentIndex().row();
+    int id=ui->tableView_8->model()->index(row,0).data().toInt();
+    bool  test = offretmp.delete_offre(id);
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+
+            QTextStream cout(&file);
+    if (test)
+
+    {
+
+
+
+
+QString message2="Vous avez supprimé un offre\n";
+cout << message2;
+QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+if (!file.open(QIODevice::ReadOnly))
+{
+QMessageBox::information(0,"info",file.errorString());
+}
+QTextStream in (&file);
+ui->textBrowser_4->setText(in.readAll());
+        QMessageBox::information(nullptr,QObject::tr("delete Offre"),QObject::tr("Offre supprime avec success\n click ok to exit"),QMessageBox::Ok);
+        ui->tableView_8->setModel(offretmp.show_offres());
+    }
+    else
+
+    {
+        QMessageBox::warning(nullptr,QObject::tr("delete Offre"),QObject::tr("Offre n a pas ete supprime\n click ok to exit"),QMessageBox::Ok);
+
+    }
+}
+
+void MainWindow::on_pushButtonRetour_17_clicked()
+{
+    ui->tabWidget1->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButtonRetour_18_clicked()
+{
+     ui->tabWidget1->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButtonRetour_16_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButtonAnnuler_4_clicked()
+{
+    Evenement e(ui->lineEditId_4->text().toInt(),ui->lineEditNom_4->text(), ui->lineEditPrix_4->text().toDouble(),ui->dateEdit1_4->date().toString(),ui->textEditDescription_4->toPlainText());
+    bool test = e.update_evenement(ui->lineEditId_4->text().toInt());
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+
+            QTextStream cout(&file);
+    if (test)
+
+    {
+
+QString message2="Vous avez modifié un evenement\n";
+    cout << message2;
+    QFile file("C:/Users/dedpy/Desktop/Historique.txt");
+   if (!file.open(QIODevice::ReadOnly))
+   {
+       QMessageBox::information(0,"info",file.errorString());
+   }
+   QTextStream in (&file);
+  ui->textBrowser_4->setText(in.readAll());
+        ui->lineEditNom_4->setText("");
+        ui->lineEditId_4->setText("");
+    ui->lineEditPrix_4->setText("");
+        ui->textEditDescription_4->setText("");
+        QMessageBox::information(nullptr,QObject::tr("Update Evenement"),QObject::tr("Evenement modifié avec success\n click ok to exit"),QMessageBox::Ok);
+        ui->tableView_7->setModel(evenementtmp.show_evenements());
+    }
+    else
+    {
+        QMessageBox::warning(nullptr,QObject::tr("Update Evenement"),QObject::tr("Evenement n a pas ete modifié\n click ok to exit"),QMessageBox::Ok);
+
+    }
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    int row=ui->tableView_7->selectionModel()->currentIndex().row();
+    int id=ui->tableView_7->model()->index(row,0).data().toInt();
+    QString id_str=QString::number(id);
+    ui->lineEditId_4->setText(id_str);
+    ui->tabWidget1->setCurrentIndex(2);
+
+}
+
+void MainWindow::on_pushButton_31_clicked()
+{
+    int row=ui->tableView_8->selectionModel()->currentIndex().row();
+    int id=ui->tableView_8->model()->index(row,0).data().toInt();
+    QString id_str=QString::number(id);
+    ui->lineEditIdOffre_4->setText(id_str);
+    ui->tabWidget1->setCurrentIndex(3);
+
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+     ui->tableView_7->setModel(evenementtmp.tri_evenements(ui->comboBox_2->currentText()));
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+     ui->tableView_7->setModel(evenementtmp.find_evenements(ui->comboBox_9->currentText(),ui->lineEditRech_4->text()));
+}
+
+void MainWindow::on_pushButton_29_clicked()
+{
+    ui->tableView_7->setModel(evenementtmp.show_evenements());
+}
+
+void MainWindow::on_pushButton_33_clicked()
+{
+    Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
+        connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+        smtp->sendMail("bacim.oueslati@esprit.tn",ui->lineEdit_4->text(),ui->lineEdit_9->text(),ui->plainTextEdit_2->toPlainText());
+
+}
+
+void MainWindow::on_pushButton_30_clicked()
+{
+    QString strStream;
+                       QTextStream out(&strStream);
+
+                        const int rowCount = ui->tableView_7->model()->rowCount();
+                        const int columnCount = ui->tableView_7->model()->columnCount();
+                       out <<  "<html>\n"
+                       "<head>\n"
+                                        "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                                        <<  QString("<title>%1</title>\n").arg("strTitle")
+                                        <<  "</head>\n"
+                                        "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                                       //     "<align='right'> " << datefich << "</align>"
+                                        "<center> <H1>Liste des evenements</H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+
+                                    // headers
+                                    out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                                    out<<"<cellspacing=10 cellpadding=3>";
+                                    for (int column = 0; column < columnCount; column++)
+                                        if (!ui->tableView_7->isColumnHidden(column))
+                                            out << QString("<th>%1</th>").arg(ui->tableView_7->model()->headerData(column, Qt::Horizontal).toString());
+                                    out << "</tr></thead>\n";
+
+                                    // data table
+                                    for (int row = 0; row < rowCount; row++) {
+                                        out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                                        for (int column = 0; column < columnCount; column++) {
+                                            if (!ui->tableView_7->isColumnHidden(column)) {
+                                                QString data = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, column)).toString().simplified();
+                                                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                                            }
+                                        }
+                                        out << "</tr>\n";
+                                    }
+                                    out <<  "</table> </center>\n"
+                                        "</body>\n"
+                                        "</html>\n";
+
+                              QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                                if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                               QPrinter printer (QPrinter::PrinterResolution);
+                                printer.setOutputFormat(QPrinter::PdfFormat);
+                               printer.setPaperSize(QPrinter::A4);
+                              printer.setOutputFileName(fileName);
+
+                               QTextDocument doc;
+                                doc.setHtml(strStream);
+                                doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                                doc.print(&printer);
+}
+
+void MainWindow::on_pushButton_32_clicked()
+{
+    QTableView *table;
+           table = ui->tableView_8;
+
+           QString filters("CSV files (.csv);;All files (.*)");
+           QString defaultFilter("CSV files (*.csv)");
+           QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
+                              filters, &defaultFilter);
+           QFile file(fileName);
+
+           QAbstractItemModel *model =  table->model();
+           if (file.open(QFile::WriteOnly | QFile::Truncate)) {
+               QTextStream data(&file);
+               QStringList strList;
+               for (int i = 0; i < model->columnCount(); i++) {
+                   if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                       strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+                   else
+                       strList.append("");
+               }
+               data << strList.join(";") << "\n";
+               for (int i = 0; i < model->rowCount(); i++) {
+                   strList.clear();
+                   for (int j = 0; j < model->columnCount(); j++) {
+
+                       if (model->data(model->index(i, j)).toString().length() > 0)
+                           strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                       else
+                           strList.append("");
+                   }
+                   data << strList.join(";") + "\n";
+               }
+               file.close();
+               QMessageBox::information(this,"Exporter To Excel","Exporter En Excel Avec Succées ");
+           }
+}
+
+void MainWindow::on_pushButtonRetour_4_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_35_clicked()
+{
+    QFile file("C:/Users/dedpy/Desktop/notes.txt");
+            if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+                return;
+            QTextStream cout(&file);
+QString message2="- "+ui->plainTextEdit_5->toPlainText() +"\n" ;
+    cout << message2;
+    ui->plainTextEdit_5->setPlainText("");
+    ui->pushButton_35->hide();
+    ui->plainTextEdit_5->hide();
+}
+
+void MainWindow::on_pushButton_34_clicked()
+{
+    ui->pushButton_35->show();
+    ui->plainTextEdit_5->show();
+}
+
+void MainWindow::on_pushButton_36_clicked()
+{
+    if (ui->comboBox_11->currentText()=="Dark mode")
+     {
+        ui->centralwidget->setStyleSheet("background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 black,stop:1 rgba(56, 63, 77, 255));");
+    }
+    if (ui->comboBox_11->currentText()=="Light mode")
+     {
+        ui->centralwidget->setStyleSheet("background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 #d5d0e5,stop:1 #f3e6e8);color:black;");
+
+    }
+    if (ui->comboBox_11->currentText()=="Normal mode")
+     {
+        ui->centralwidget->setStyleSheet("background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(102, 115, 140, 255),stop:1 rgba(56, 63, 77, 255));QPushButton        {            background-color: qlineargradient(spread:repeat, x1:0.486, y1:0, x2:0.505, y2:1, stop:0.00480769 rgba(170, 0, 0, 255),stop:1 rgba(122, 0, 0, 255));            color: #ffffff;            font-weight: bold;            border-style: solid;            border-width: 1px;           border-radius: 3px;         border-color: #051a39;            padding: 5px;                }");
+
+    }
+}
+
+void MainWindow::on_pushButton_gestionnouv_clicked()
+{
+    click->play();
+    ui->stackedWidget->setCurrentIndex(4);
+}

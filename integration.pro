@@ -17,10 +17,12 @@ CONFIG += c++11
 SOURCES += \
     conge.cpp \
     database.cpp \
+    evenement.cpp \
     home.cpp \
     main.cpp \
     mainwindow.cpp \
     mainwindow0.cpp \
+    offre.cpp \
     planning.cpp \
     plat.cpp \
     commande.cpp \
@@ -39,9 +41,11 @@ SOURCES += \
 HEADERS += \
     conge.h \
     database.h \
+    evenement.h \
     home.h \
     mainwindow.h \
     mainwindow0.h \
+    offre.h \
     planning.h \
     plat.h \
     commande.h \
@@ -51,6 +55,7 @@ HEADERS += \
     client.h \
     modifierres.h \
     modifiertab.h \
+    querDefines.h \
     smtp.h \
     staff.h \
     supprimerres.h \
@@ -81,3 +86,6 @@ DISTFILES += \
     integration.pro.user.bd35519 \
     music.mp3 \
     style.qss
+
+RESOURCES += \
+    ressources.qrc

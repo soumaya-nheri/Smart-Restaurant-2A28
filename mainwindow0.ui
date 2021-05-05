@@ -95,6 +95,19 @@ background:none;</string>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="2">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="line_username">
          <property name="styleSheet">
@@ -115,23 +128,6 @@ background:none;</string>
          </property>
         </spacer>
        </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="checkBox">
-         <property name="styleSheet">
-          <string notr="true">font-size:13px;</string>
-         </property>
-         <property name="text">
-          <string>Rester Connecter</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Se Connecter</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="1">
         <widget class="QLineEdit" name="line_password">
          <property name="styleSheet">
@@ -142,23 +138,10 @@ background:none;</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="5" column="2">
-        <widget class="QPushButton" name="pushButton_creation1">
+       <item row="4" column="1">
+        <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string>Creer Un Compte</string>
+          <string>Se Connecter</string>
          </property>
         </widget>
        </item>
@@ -303,7 +286,7 @@ font-size:36px;
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
