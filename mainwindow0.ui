@@ -17,11 +17,14 @@
    <widget class="QStackedWidget" name="stackedWidget_connexion">
     <property name="geometry">
      <rect>
-      <x>-10</x>
+      <x>-20</x>
       <y>10</y>
       <width>811</width>
       <height>541</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -45,57 +48,41 @@ background:none;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>136</x>
-        <y>231</y>
-        <width>491</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="leftMargin">
-        <number>185</number>
-       </property>
-       <property name="topMargin">
-        <number>15</number>
-       </property>
-       <property name="rightMargin">
-        <number>90</number>
-       </property>
-       <property name="bottomMargin">
-        <number>15</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_login">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background:none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>137</x>
+        <x>17</x>
         <y>231</y>
-        <width>521</width>
-        <height>241</height>
+        <width>791</width>
+        <height>311</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="2">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="line_username">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="line_password">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Se Connecter</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -108,14 +95,7 @@ background:none;</string>
          </property>
         </spacer>
        </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="line_username">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
+       <item row="1" column="0">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -128,23 +108,6 @@ background:none;</string>
          </property>
         </spacer>
        </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="line_password">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Se Connecter</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="layoutWidget_3">
@@ -153,7 +116,7 @@ background:none;</string>
         <x>130</x>
         <y>0</y>
         <width>531</width>
-        <height>231</height>
+        <height>171</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -174,24 +137,40 @@ font-size:36px;
 </string>
          </property>
          <property name="text">
-          <string>          Athentification</string>
+          <string>          Authentification</string>
          </property>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="timer">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>100</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Time</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="logo">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>81</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image:url(:/new/prefix1/img/logo.png)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">

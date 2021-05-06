@@ -2,5 +2,8 @@
     <qresource prefix="/new/prefix1">
         <file>style.qss</file>
         <file>Incrypt.qss</file>
+        <file>img/logo.png</file>
+        <file>img/login.png</file>
+        <file>img/restaurant.jpg</file>
     </qresource>
 </RCC>

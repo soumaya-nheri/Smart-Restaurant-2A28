@@ -6,6 +6,7 @@
 #include "conge.h"
 #include "produit.h"
 #include<fclient.h>
+#include <QTranslator>
 #include<flivraison.h>
 #include "ajouterproduit.h"
 #include "modifierproduit.h"
@@ -68,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
      ui->tableView_staff_2->setSelectionMode(QAbstractItemView::SingleSelection);
      QSqlQueryModel *model2=new QSqlQueryModel();
      QSqlQueryModel *model3=new QSqlQueryModel();
+     ui->cin_staff_2->setValidator(new QIntValidator(0,99999999,this));
      model3->setQuery("select email from staff");
      QString nom;
      model2->setQuery("select nom from staff");
@@ -319,6 +321,13 @@ void MainWindow::on_ajouter_2_clicked()
             widget->clear();
         }
     }
+        QPropertyAnimation *animation;
+        animation = new QPropertyAnimation(ui->ajouter_2,"geometry");
+        animation->setDuration(1000);
+        animation->setStartValue(QRect(230,260,80,21));
+        animation->setEndValue(QRect(230,260,100,21));
+        animation->setEasingCurve(QEasingCurve::InOutQuint);
+        animation->start();
 }
 
 
@@ -339,6 +348,13 @@ void MainWindow::on_pushButtonSuppr_2_clicked()
                ui->tableViewConge_2->setModel(mm);
                ui->tableViewConge_2->setSortingEnabled(true);
             }
+        QPropertyAnimation *animation;
+        animation = new QPropertyAnimation(ui->pushButtonSuppr_2,"geometry");
+        animation->setDuration(1000);
+        animation->setStartValue(QRect(420,440,80,21));
+        animation->setEndValue(QRect(420,440,120,21));
+        animation->setEasingCurve(QEasingCurve::InOutQuint);
+        animation->start();
 }
 
 void MainWindow::on_pushButtonEdit_2_clicked()
@@ -382,6 +398,13 @@ void MainWindow::on_pushButtonEdit_2_clicked()
                 }
 
     ui->pushButtonEdit_2->setChecked(false);
+    QPropertyAnimation *animation;
+    animation = new QPropertyAnimation(ui->pushButtonEdit_2,"geometry");
+    animation->setDuration(1000);
+    animation->setStartValue(QRect(300,440,80,21));
+    animation->setEndValue(QRect(300,440,120,21));
+    animation->setEasingCurve(QEasingCurve::InOutQuint);
+    animation->start();
 }
 
 void MainWindow::on_pushButtonPDF_3_clicked()
@@ -409,6 +432,13 @@ void MainWindow::on_pushButtonPDF_3_clicked()
                     doc.setHtml(pdf);
                     doc.setPageSize(printer.pageRect().size()); // t5abbi numero l page
                     doc.print(&printer);
+                    QPropertyAnimation *animation;
+                    animation = new QPropertyAnimation(ui->pushButtonPDF_3,"geometry");
+                    animation->setDuration(1000);
+                    animation->setStartValue(QRect(30,440,101,21));
+                    animation->setEndValue(QRect(30,440,150,21));
+                    animation->setEasingCurve(QEasingCurve::InOutQuint);
+                    animation->start();
 }
 
 /*
@@ -2765,4 +2795,13 @@ void MainWindow::on_pushButton_20_clicked()
            MainWindow0* a = new class MainWindow0(this);
            a->show();
        }
+}
+
+void MainWindow::on_pushButton_21_clicked()
+{
+    click->play();
+
+
+    ui->stackedWidget->setCurrentIndex(0);
+
 }

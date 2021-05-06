@@ -1,19 +1,29 @@
 #include "mainwindow0.h"
 #include "ui_mainwindow0.h"
 #include "QMessageBox"
+#include <QTimer>
+#include <QTime>
+#include <QDateTime>
 MainWindow0::MainWindow0(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow0)
 {
     ui->setupUi(this);
+
+    this->setWindowTitle("Connexion");
     ui->line_username->setPlaceholderText("Nom D'utilisateur");
     ui->line_password->setPlaceholderText("Mot de Passe");
+    QTimer *timer_p=new QTimer(this);
+           connect(timer_p, SIGNAL(timeout()), this,SLOT(showTime()));
+           timer_p->start(1000);
 }
 
 MainWindow0::~MainWindow0()
 {
     delete ui;
 }
+
+
 
 void MainWindow0::on_pushButton_clicked()
 {
@@ -51,4 +61,8 @@ void MainWindow0::on_pushButton_clicked()
             }
 
 
+void MainWindow0::showTime(){
+    ui->timer->setText(QTime::currentTime().toString("hh:mm:ss"));
+
+}
 

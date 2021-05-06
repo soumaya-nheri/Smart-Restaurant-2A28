@@ -21,7 +21,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
+    void showTime();
 
 private:
     Ui::MainWindow0 *ui;

@@ -137,12 +137,18 @@ DISTFILES += \
     Click.wav \
     Incrypt.qss \
     SyNet.qss \
+    english.qm \
+    english.ts \
+    francais.ts \
     integration.pro.user \
     integration.pro.user.bd35519 \
+    logo.png \
     music.mp3 \
     style.qss
 
 RESOURCES += \
     ressources.qrc \
     ressources.qrc \
-    ressources.qrc
+    ressources.qrc \
+    ressources.qrc \
+    traduction.qrc
