@@ -1,9 +1,12 @@
 #include "mainwindow.h"
+#include "mainwindow0.h"
 #include "ui_mainwindow.h"
 #include "client.h"
 #include "ajouterres.h"
 #include "conge.h"
 #include "produit.h"
+#include<fclient.h>
+#include<flivraison.h>
 #include "ajouterproduit.h"
 #include "modifierproduit.h"
 #include "supprimerproduit.h"
@@ -53,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
     conge tmpconge;
     ui->setupUi(this);
     this->setWindowTitle("Smart Restaurant");
+    ui->tableView->setModel(tmpclient.afficher());//refresh
+    ui->tableView_2->setModel(tmplivraison.afficher());//refresh
     mysystem1 = new QSystemTrayIcon(this);
     mysystem1->setVisible(true);
      ui->stackedWidget->setCurrentIndex(0);
@@ -68,6 +73,57 @@ MainWindow::MainWindow(QWidget *parent)
      model2->setQuery("select nom from staff");
      ui->comboBox_employe_2->setModel(model2);
      ui->comboBox_2->setModel(model3);
+     //statistique
+         int regio;
+            int non_regio;
+            int total;
+            QString regionale;
+            QString non_regionale;
+            QSqlQuery q;
+
+            q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='livraison' ");
+            q.exec();
+            q.first() ;
+            regio=(q.value(0).toInt());
+
+            q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='sur place' ");
+            q.exec();
+            q.first() ;
+            non_regio=(q.value(0).toInt());
+
+            q.prepare("SELECT COUNT(id_com) FROM commandes ");
+            q.exec();
+            q.first() ;
+            total=(q.value(0).toInt());
+
+            regio=((double)regio/(double)total)*100;
+            non_regio=100-regio;
+
+            regionale= QString::number(regio);
+            non_regionale=QString::number(non_regio);
+            QPieSeries *series;
+             series= new  QPieSeries();
+             series->append("livraison"+regionale+"%",regio);
+             series->append("sur place"+non_regionale+"%",non_regio);
+             QPieSlice *slice0 = series->slices().at(0);
+              slice0->setLabelVisible();
+
+              QPieSlice *slice1 = series->slices().at(1);
+                 slice1->setExploded();
+                 slice1->setLabelVisible();
+                 slice1->setPen(QPen(Qt::green, 3));
+                 slice1->setBrush(Qt::darkYellow);
+
+                  QChart *chart = new QChart();
+                  chart->addSeries(series);
+                  chart->setTitle("Statistique du type de commandes ");
+                  chart->legend()->show();
+                  QChartView *chartView = new QChartView(chart);
+                  chartView->setRenderHint(QPainter::Antialiasing);
+                  ui->verticalLayout->addWidget(chartView);
+             show();
+             ui->verticalLayout->removeWidget(chartView);
+             show();
 
      //music
         click = new QMediaPlayer();
@@ -79,56 +135,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableView_statCom->setModel(Com.Stat_commande());
         ui->tableView_statComStaff->setModel(Com.Stat_commandeStaff());
         ui->tableView_afficherPlat->setModel(P.Afficher_plat());
-    //statistique
-        int regio;
-           int non_regio;
-           int total;
-           QString regionale;
-           QString non_regionale;
-           QSqlQuery q;
 
-           q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='livraison' ");
-           q.exec();
-           q.first() ;
-           regio=(q.value(0).toInt());
-
-           q.prepare("SELECT COUNT(id_com) FROM commandes where type_com='sur place' ");
-           q.exec();
-           q.first() ;
-           non_regio=(q.value(0).toInt());
-
-           q.prepare("SELECT COUNT(id_com) FROM commandes ");
-           q.exec();
-           q.first() ;
-           total=(q.value(0).toInt());
-
-           regio=((double)regio/(double)total)*100;
-           non_regio=100-regio;
-
-           regionale= QString::number(regio);
-           non_regionale=QString::number(non_regio);
-           QPieSeries *series;
-            series= new  QPieSeries();
-            series->append("livraison"+regionale+"%",regio);
-            series->append("sur place"+non_regionale+"%",non_regio);
-            QPieSlice *slice0 = series->slices().at(0);
-             slice0->setLabelVisible();
-
-             QPieSlice *slice1 = series->slices().at(1);
-                slice1->setExploded();
-                slice1->setLabelVisible();
-                slice1->setPen(QPen(Qt::green, 3));
-                slice1->setBrush(Qt::darkYellow);
-
-                 QChart *chart = new QChart();
-                 chart->addSeries(series);
-                 chart->setTitle("Statistique du type de commandes ");
-                 chart->legend()->show();
-                 QChartView *chartView = new QChartView(chart);
-                 chartView->setRenderHint(QPainter::Antialiasing);
-                 ui->verticalLayout->addWidget(chartView);
-            show();
-            ui->verticalLayout->removeWidget(chartView);
     //Recherche Qcompleter
         QStringList wordList;
             qry.exec("SELECT id_com, type_com, id_plat FROM commandes");
@@ -541,7 +548,7 @@ void MainWindow::on_pushButton_2_clicked()
 {
     click->play();
     Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
-    smtp->sendMail("Qt projet esprit", ui->comboBox_2->currentText() ,"Planning"," du votre seance de travaille : "+ui->DATE_PRESENCE_2->date().toString("dddd, dd MMMM yyyy"));
+    smtp->sendMail("Qt projet esprit", ui->comboBox_2->currentText() ,"Planning"," Planning du votre seance de travaille est : "+ui->DATE_PRESENCE_2->date().toString("dddd, dd MMMM yyyy"));
 }
 
 void MainWindow::on_supprimer_planning_2_clicked()
@@ -1034,7 +1041,8 @@ void MainWindow::on_pushButton_rechercherPlat_clicked()
 
 void MainWindow::on_pushButton_statCom_clicked()
 {
-   click->play();
+
+    click->play();
    int regio;
    int non_regio;
    int total;
@@ -1084,6 +1092,8 @@ void MainWindow::on_pushButton_statCom_clicked()
          ui->verticalLayout->addWidget(chartView);
     show();
     //ui->
+    ui->verticalLayout->removeWidget(chartView);
+
 }
 
 
@@ -1202,38 +1212,6 @@ void MainWindow::on_checkBox_traduction_clicked()
 }
 
 
-
-
-void MainWindow::browse()
-{
-    files.clear();
-
-    QFileDialog dialog(this);
-    dialog.setDirectory(QDir::homePath());
-    dialog.setFileMode(QFileDialog::ExistingFiles);
-
-    if (dialog.exec())
-        files = dialog.selectedFiles();
-
-    QString fileListString;
-    foreach(QString file, files)
-        fileListString.append( "\"" + QFileInfo(file).fileName() + "\" " );
-
-    ui->file_3->setText( fileListString );
-
-}
-
-
-void MainWindow::sendMail()
-{
-    Smtp* smtp = new Smtp(ui->uname_3->text(), ui->paswd_3->text(), ui->server_3->text(), ui->port_3->text().toInt());
-    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
-
-    if( !files.isEmpty() )
-        smtp->sendMail(ui->uname_3->text(), ui->rcpt_3->text() , ui->subject_3->text(),ui->msg_3->toPlainText(), files );
-    else
-        smtp->sendMail(ui->uname_3->text(), ui->rcpt_3->text() , ui->subject_3->text(),ui->msg_3->toPlainText());
-}
 
 void MainWindow::mailSent(QString status)
 {
@@ -1410,14 +1388,9 @@ void MainWindow::on_pushButton_supprimertab_2_clicked()
 
 void MainWindow::on_sendBtn_3_clicked()
 {
-        connect(ui->sendBtn_3, SIGNAL(clicked()),this, SLOT(sendMail()));
-        connect(ui->exitBtn_3, SIGNAL(clicked()),this, SLOT(close()));
-        connect(ui->browseBtn_4, SIGNAL(clicked()), this, SLOT(browse()));
-
         click->play();
         Smtp* smtp = new Smtp("dedsec1450@gmail.com", "wassimben123", "smtp.gmail.com", 465);
         smtp->sendMail("Reservation", ui->subject_3->text(),ui->msg_3->toPlainText(),"test" );
-
 
 }
 
@@ -1988,6 +1961,56 @@ void MainWindow::on_pushButton_chercherproduit_clicked()
 void MainWindow::on_pushButtonproduit_clicked()
 {
       ui->tableView_produit->setModel(tempproduit.afficher());
+      ui->tableView_produit->setModel(tempproduit.afficher());
+            int akther;
+                       int akal;
+                       int somme;
+                       QString akther50;
+                       QString akal50;
+                       QSqlQuery q1;
+
+                       q1.prepare("SELECT COUNT(*) FROM produit where to_number(prix_p)>50");
+                       q1.exec();
+                       q1.first() ;
+                       akther=(q1.value(0).toInt());
+
+                       q1.prepare("SELECT COUNT(*) FROM produit where to_number(prix_p)<50");
+                       q1.exec();
+                       q1.first() ;
+                       akal=(q1.value(0).toInt());
+
+                       q1.prepare("SELECT COUNT(*) FROM produit ");
+                       q1.exec();
+                       q1.first() ;
+                       somme=(q1.value(0).toInt());
+
+                       akther=((double)akther/(double)somme)*100;
+                       akal=((double)akal/(double)somme)*100;
+
+                       akther50= QString::number(akther);
+                       akal50=QString::number(akal);
+                       QPieSeries *series1;
+                        series1= new  QPieSeries();
+                        series1->append(" plus ce que 50 DT "+akther50+"%",akther);
+                        series1->append(" moins 50 DT  "+akal50+"%",akal);
+                        QPieSlice *slice00 = series1->slices().at(0);
+                         slice00->setLabelVisible();
+
+                         QPieSlice *slice01 = series1->slices().at(1);
+                            slice01->setExploded();
+                            slice01->setLabelVisible();
+                            slice01->setPen(QPen(Qt::green, 3));
+                            slice01->setBrush(Qt::darkYellow);
+
+                             QChart *chart1 = new QChart();
+                             chart1->addSeries(series1);
+                             chart1->setTitle("Statistique des types  ");
+                             chart1->legend()->show();
+                             QChartView *chartView1 = new QChartView(chart1);
+                             chartView1->setRenderHint(QPainter::Antialiasing);
+                             ui->vertical_layout_stat1->addWidget(chartView1);
+                        show();
+                        ui->vertical_layout_stat1->removeWidget(chartView1);
 }
 
 void MainWindow::on_radioButton_pripr_clicked()
@@ -2112,4 +2135,634 @@ void MainWindow::on_pushButton_stat_clicked()
 void MainWindow::on_pushButton_gestionstock_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
+}
+
+void MainWindow::on_pushButton_mailCom_clicked()
+{
+    SmtpClient smtp("smtp.gmail.com", 465, SmtpClient::SslConnection);
+                       smtp.setUser("smartrestaurant28@gmail.com");
+                       smtp.setPassword("behija12345678");
+                       MimeMessage message;
+                       message.setSender(new EmailAddress("smartrestaurant28@gmail.com", "Smart Restaurant"));
+                       QString emaiil =ui->lineEdit_mailCom->text();
+                       message.addRecipient(new EmailAddress(emaiil, ""));
+                       message.setSubject("Information");
+                       MimeText text;
+                       QString emaill = ui->textEdit_mailtextCom->toPlainText();
+                       text.setText(emaill);
+                       message.addPart(&text);
+                       smtp.connectToHost();
+                       smtp.login();
+                       if(smtp.sendMail(message))
+                       {
+                           QMessageBox::information(this, "PAS D'ERREUR", "Envoyé");
+                       }
+                       else
+                       {
+                           QMessageBox::critical(this, "ERREUR", "Non Envoyé (probleme de connexion)");
+                       }
+                       smtp.quit();
+}
+
+
+//yassin
+void MainWindow::on_pushButton_clicked()
+{
+    QString id = ui->lineEdit_id->text();
+    QString nom= ui->lineEdit_nom->text();
+    QString prenom= ui->lineEdit_prenom->text();
+    QString num= ui->lineEdit_num->text();
+    QString mail= ui->lineEdit_mail->text();
+    QString adress= ui->lineEdit_adress->text();
+
+fclient c(id,nom,prenom,num,mail,adress);
+
+if(id=="" || nom=="" || prenom=="" || num=="" || mail=="" || adress==""){
+    QMessageBox::critical(nullptr, QObject::tr("ajouter client"),
+                          QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+}
+
+
+    bool test=c.ajouter();
+    if(test)
+    {
+         ui->lineEdit_id->clear();
+         ui->lineEdit_nom->clear();
+         ui->lineEdit_prenom->clear();
+         ui->lineEdit_num->clear();
+         ui->lineEdit_mail->clear();
+         ui->lineEdit_adress->clear();
+
+
+        ui->tableView->setModel(tmpclient.afficher());//refresh
+        QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+        notifyIcon->show();
+        notifyIcon->setIcon(QIcon("icone.png"));
+
+
+        notifyIcon->showMessage("GESTION CLIENT  CLIENTS ","client Ajouté",QSystemTrayIcon::Information,15000);
+
+    QMessageBox::information(nullptr, QObject::tr("ajouter client"),
+                          QObject::tr("client ajouté./n"
+                             "click cancel to exit."),QMessageBox::Cancel);
+    }
+
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajouter client"),
+                              QObject::tr("Erreur !./n"
+                                 "click cancel to exit."),QMessageBox::Cancel);
+
+
+}
+
+
+
+void MainWindow::on_tableView_activated(const QModelIndex &index)
+{
+
+    QString val=ui->tableView->model()->data(index).toString();
+       QSqlQuery qry;
+       qry.prepare("select * from CLIENT where ID='"+val+"'");
+       if(qry.exec())
+       {
+           while(qry.next())
+           {
+               ui->lineEdit_ids->setText(qry.value(0).toString());
+               ui->lineEdit_id->setText(qry.value(0).toString());
+               ui->lineEdit_nom->setText(qry.value(1).toString());
+               ui->lineEdit_prenom->setText(qry.value(2).toString());
+               ui->lineEdit_num->setText(qry.value(3).toString());
+               ui->lineEdit_mail->setText(qry.value(4).toString());
+               ui->lineEdit_adress->setText(qry.value(5).toString());
+
+
+
+
+
+           }
+
+       }
+       else
+       {
+           QMessageBox::critical(this,tr("error::"),qry.lastError().text());
+       }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString id = ui->lineEdit_ids->text();
+    if(id=="" ){
+        QMessageBox::critical(nullptr, QObject::tr("supprimer client"),
+                              QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+    }
+
+    bool test=tmpclient.supprimer(id);
+    if(test)
+    {ui->tableView->setModel(tmpclient.afficher());//refresh
+
+        ui->lineEdit_ids->clear();
+
+
+        QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+        notifyIcon->show();
+        notifyIcon->setIcon(QIcon("icone.png"));
+
+
+        notifyIcon->showMessage("GESTION  CLIENTS ","Client supprimé",QSystemTrayIcon::Information,15000);
+
+        QMessageBox::information(nullptr, QObject::tr("Supprimer client"),
+                    QObject::tr("client supprimé.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("Supprimer un client"),
+                    QObject::tr("Erreur !.\n"
+                     "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    QString id = ui->lineEdit_id->text();
+    QString nom= ui->lineEdit_nom->text();
+    QString prenom= ui->lineEdit_prenom->text();
+    QString num= ui->lineEdit_num->text();
+    QString mail= ui->lineEdit_mail->text();
+    QString adress= ui->lineEdit_adress->text();
+    if(id=="" || nom=="" || prenom=="" || num=="" || mail=="" || adress==""){
+        QMessageBox::critical(nullptr, QObject::tr("modifier client"),
+                              QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+    }
+
+
+    QSqlQuery query;
+    query.prepare("UPDATE CLIENT SET ID='"+id+"',NOM='"+nom+"',PRENOM='"+prenom+"',NUM='"+num+"',MAIL='"+mail+"',ADRESS='"+adress+"' where ID = '"+id+"'");
+    bool test = query.exec();
+    if(test)
+    {
+
+       ui->tableView->setModel(tmpclient.afficher());
+       ui->lineEdit_id->clear();
+       ui->lineEdit_nom->clear();
+       ui->lineEdit_prenom->clear();
+       ui->lineEdit_num->clear();
+       ui->lineEdit_mail->clear();
+       ui->lineEdit_adress->clear();
+
+
+       QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+       notifyIcon->show();
+       notifyIcon->setIcon(QIcon("icone.png"));
+
+
+
+       notifyIcon->showMessage("GESTION   CLIENTS ","Client Modifié",QSystemTrayIcon::Information,15000);
+
+
+
+
+        QMessageBox::information(nullptr, QObject::tr("Modifier Client"),
+                    QObject::tr("Client Modifieé.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, QObject::tr("Modifier Client"),
+                    QObject::tr("Erreur !.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->tableView->setModel(tmpclient.afficher());
+    ui->lineEdit_id->clear();
+    ui->lineEdit_nom->clear();
+    ui->lineEdit_prenom->clear();
+    ui->lineEdit_num->clear();
+    ui->lineEdit_mail->clear();
+    ui->lineEdit_adress->clear();
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    QString id = ui->lineEdit_id_2->text();
+    QString date= ui->lineEdit_date->text();
+    QString lieu= ui->lineEdit_lieu->text();
+
+    QString etat=ui->comboBox->currentText();
+flivraison l(id,date,lieu,etat);
+if(id=="" || date=="" || lieu=="" || etat=="" ){
+    QMessageBox::critical(nullptr, QObject::tr("ajouter livraison"),
+                          QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+}
+
+
+
+
+    bool test=l.ajouter();
+    if(test)
+    {
+         ui->lineEdit_id_2->clear();
+         ui->lineEdit_date->clear();
+         ui->lineEdit_lieu->clear();
+
+
+
+
+        ui->tableView_2->setModel(tmplivraison.afficher());//refresh
+        QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+        notifyIcon->show();
+        notifyIcon->setIcon(QIcon("icone.png"));
+
+        notifyIcon->showMessage("GESTION CLIENT  CLIENTS ","livraison Ajouté",QSystemTrayIcon::Information,15000);
+
+    QMessageBox::information(nullptr, QObject::tr("ajouter livraison"),
+                          QObject::tr("livraison ajouté./n"
+                             "click cancel to exit."),QMessageBox::Cancel);
+    }
+
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajouter livraison"),
+                              QObject::tr("Erreur !./n"
+                                 "click cancel to exit."),QMessageBox::Cancel);
+
+
+}
+
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    QString id = ui->lineEdit_5->text();
+    bool test=tmplivraison.supprimer(id);
+    if(id=="" ){
+        QMessageBox::critical(nullptr, QObject::tr("ajouter livraison"),
+                              QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+    }
+    if(test)
+    {ui->tableView_2->setModel(tmplivraison.afficher());//refresh
+        ui->lineEdit_5->clear();
+        QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+        notifyIcon->show();
+        notifyIcon->setIcon(QIcon("icone.png"));
+
+        notifyIcon->showMessage("GESTION   CLIENTS ","livraison supprimé",QSystemTrayIcon::Information,15000);
+
+        QMessageBox::information(nullptr, QObject::tr("Supprimer une livraison"),
+                    QObject::tr("livraison supprimé.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("Supprimer une livraison"),
+                    QObject::tr("Erreur !.\n"
+                     "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void MainWindow::on_pushButton_8_clicked(){
+    QString id = ui->lineEdit_id_2->text();
+    QString date= ui->lineEdit_date->text();
+    QString lieu= ui->lineEdit_lieu->text();
+    QString etat=ui->comboBox->currentText();
+    if(id=="" || date=="" || lieu=="" || etat=="" ){
+        QMessageBox::critical(nullptr, QObject::tr("modifier livraison"),
+                              QObject::tr("merci de remplir tout les champs."),QMessageBox::Cancel);
+    }
+
+
+
+
+QSqlQuery query;
+query.prepare("UPDATE LIVRAISON SET ID='"+id+"',DATEE='"+date+"',LIEU='"+lieu+"',ETAT='"+etat+"' where ID = '"+id+"'");
+bool test = query.exec();
+if(test)
+{
+
+   ui->tableView_2->setModel(tmplivraison.afficher());
+   ui->lineEdit_id_2->clear();
+   ui->lineEdit_date->clear();
+   ui->lineEdit_lieu->clear();
+
+   QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+   notifyIcon->show();
+   notifyIcon->setIcon(QIcon("icone.png"));
+
+   notifyIcon->showMessage("GESTION CLIENT  CLIENTS ","Client Modifié",QSystemTrayIcon::Information,15000);
+
+    QMessageBox::information(nullptr, QObject::tr("Modifier Client"),
+                QObject::tr("Client Modifieé.\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+}
+else
+{
+    QMessageBox::critical(nullptr, QObject::tr("Modifier Client"),
+                QObject::tr("Erreur !.\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+}
+}
+
+
+void MainWindow::on_pushButton_14_clicked()
+{
+    //QDateTime datecreation = date.currentDateTime();
+            //QString afficheDC = "Date de Creation PDF : " + datecreation.toString() ;
+                   QPdfWriter pdf("C:/Users/dedpy/Desktop/livraison.pdf");
+                   QPainter painter(&pdf);
+                  int i = 4000;
+                       painter.setPen(Qt::blue);
+                       painter.setFont(QFont("Arial", 30));
+                       painter.drawText(1100,1200,"Liste Des Livraison");
+                       painter.setPen(Qt::black);
+                       painter.setFont(QFont("Arial", 15));
+                      // painter.drawText(1100,2000,afficheDC);
+                       painter.drawRect(100,100,7300,2600);
+                       //painter.drawPixmap(QRect(7600,70,2000,2600),QPixmap("C:/Users/RH/Desktop/projecpp/image/logopdf.png"));
+                       painter.drawRect(0,3000,9600,500);
+                       painter.setFont(QFont("Arial", 9));
+                       painter.drawText(200,3300,"ID");
+                       painter.drawText(1300,3300,"DATE");
+                       painter.drawText(2100,3300,"LIEU");
+                       painter.drawText(3200,3300,"ETAT");
+
+                       QSqlQuery query;
+                       query.prepare("select * from LIVRAISON");
+                       query.exec();
+                       while (query.next())
+                       {
+                           painter.drawText(200,i,query.value(0).toString());
+                           painter.drawText(1300,i,query.value(1).toString());
+                           painter.drawText(2200,i,query.value(2).toString());
+                           painter.drawText(3200,i,query.value(3).toString());
+
+                          i = i + 500;
+                       }
+                       int reponse = QMessageBox::question(this, "Génerer PDF", "<PDF Enregistré>...Vous Voulez Affichez Le PDF ?", QMessageBox::Yes |  QMessageBox::No);
+                           if (reponse == QMessageBox::Yes)
+                           {
+                               QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+                               notifyIcon->show();
+                               notifyIcon->setIcon(QIcon("icone.png"));
+
+                               notifyIcon->showMessage("GESTION  CLIENTS ","Liste LIVRAISON prete à imprimer",QSystemTrayIcon::Information,15000);
+
+                               painter.end();
+                           }
+                           if (reponse == QMessageBox::No)
+                           {
+                                painter.end();
+                           }
+}
+
+void MainWindow::on_tableView_2_activated(const QModelIndex &index)
+{
+
+    QString val=ui->tableView_2->model()->data(index).toString();
+       QSqlQuery qry;
+       qry.prepare("select * from LIVRAISON where ID='"+val+"'");
+       if(qry.exec())
+       {
+           while(qry.next())
+           {
+               ui->lineEdit_5->setText(qry.value(0).toString());
+               ui->lineEdit_id_2->setText(qry.value(0).toString());
+               ui->lineEdit_date->setText(qry.value(1).toString());
+               ui->lineEdit_lieu->setText(qry.value(2).toString());
+               ui->comboBox->setCurrentText(qry.value(3).toString());
+
+
+
+
+
+
+
+
+           }
+
+       }
+       else
+       {
+           QMessageBox::critical(this,tr("error::"),qry.lastError().text());
+       }
+}
+
+void MainWindow::on_pushButton_17_clicked()
+{
+    ui->tableView_2->setModel(tmplivraison.afficher());
+    ui->lineEdit_id_2->clear();
+    ui->lineEdit_date->clear();
+    ui->lineEdit_lieu->clear();
+
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{ QPdfWriter pdf("C:/Users/msi/OneDrive/Bureau/client.pdf");
+    QPainter painter(&pdf);
+   int i = 4000;
+        painter.setPen(Qt::blue);
+        painter.setFont(QFont("Arial", 30));
+        painter.drawText(1100,1200,"Liste Des Livraison");
+        painter.setPen(Qt::black);
+        painter.setFont(QFont("Arial", 15));
+       // painter.drawText(1100,2000,afficheDC);
+        painter.drawRect(100,100,7300,2600);
+        //painter.drawPixmap(QRect(7600,70,2000,2600),QPixmap("C:/Users/RH/Desktop/projecpp/image/logopdf.png"));
+        painter.drawRect(0,3000,9600,500);
+        painter.setFont(QFont("Arial", 9));
+        painter.drawText(200,3300,"ID");
+        painter.drawText(1300,3300,"NOM");
+        painter.drawText(2100,3300,"PRENOM");
+        painter.drawText(3200,3300,"NUM");
+        painter.drawText(4300,3300,"MAIL");
+        painter.drawText(5400,3300,"ADRESS");
+
+
+        QSqlQuery query;
+        query.prepare("select * from CLIENT");
+        query.exec();
+        while (query.next())
+        {
+            painter.drawText(200,i,query.value(0).toString());
+            painter.drawText(1300,i,query.value(1).toString());
+            painter.drawText(2200,i,query.value(2).toString());
+            painter.drawText(3200,i,query.value(3).toString());
+            painter.drawText(4300,i,query.value(4).toString());
+            painter.drawText(5400,i,query.value(5).toString());
+
+
+
+
+
+
+           i = i + 500;
+        }
+        int reponse = QMessageBox::question(this, "Génerer PDF", "<PDF Enregistré>...Vous Voulez Affichez Le PDF ?", QMessageBox::Yes |  QMessageBox::No);
+            if (reponse == QMessageBox::Yes)
+            {
+                QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+                notifyIcon->show();
+                notifyIcon->setIcon(QIcon("icone.png"));
+
+                notifyIcon->showMessage("GESTION  CLIENTS ","Liste CLIENTS prete à imprimer",QSystemTrayIcon::Information,15000);
+
+                painter.end();
+            }
+            if (reponse == QMessageBox::No)
+            {
+                 painter.end();
+            }
+}
+
+void MainWindow::on_lineEdit_2_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+    if(ui->comboBox_4->currentText()=="ID"){
+        query->prepare("SELECT * FROM CLIENT WHERE ID LIKE'"+arg1+"%'");//+tri
+query->exec();
+    model->setQuery(*query);
+ui->tableView->setModel(model);
+
+
+    }
+    else {
+        if(ui->comboBox_4->currentText()=="NOM"){
+            query->prepare("SELECT * FROM CLIENT WHERE NOM LIKE'"+arg1+"%'");//+tri
+    query->exec();
+        model->setQuery(*query);
+    ui->tableView->setModel(model);
+        }
+        else {
+            if(ui->comboBox_4->currentText()=="PRENOM"){
+            query->prepare("SELECT * FROM CLIENT WHERE PRENOM LIKE'"+arg1+"%'");//+tri
+    query->exec();
+        model->setQuery(*query);
+    ui->tableView->setModel(model);
+            }
+
+        }
+
+    }
+}
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+    if(ui->comboBox_3->currentText()=="ID"){
+        query->prepare("SELECT * FROM CLIENT order by ID");//+tri
+query->exec();
+    model->setQuery(*query);
+    QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+    notifyIcon->show();
+    notifyIcon->setIcon(QIcon("icone.png"));
+
+    notifyIcon->showMessage("GESTION CLIENT  CLIENTS ","Client trié",QSystemTrayIcon::Information,15000);
+ui->tableView->setModel(model);
+
+
+
+
+    }
+    else {
+        if(ui->comboBox_3->currentText()=="NOM"){
+            query->prepare("SELECT * FROM CLIENT order by NOM");//+tri
+    query->exec();
+        model->setQuery(*query);
+        QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+        notifyIcon->show();
+        notifyIcon->setIcon(QIcon("icone.png"));
+
+        notifyIcon->showMessage("GESTION CLIENT  CLIENTS ","Client trié",QSystemTrayIcon::Information,15000);
+    ui->tableView->setModel(model);
+        }
+
+
+    }
+}
+
+void MainWindow::on_pushButton_16_clicked()
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+           QString arg1=ui->comboBox_5->currentText();
+    if(ui->comboBox_5->currentText()=="LIVRE"){
+        query->prepare("SELECT * FROM LIVRAISON WHERE ETAT LIKE'"+arg1+"%'");//+tri
+query->exec();
+    model->setQuery(*query);
+ui->tableView_2->setModel(model);
+
+
+    }
+    else {
+        if(ui->comboBox_5->currentText()=="NON LIVRE"){
+            query->prepare("SELECT * FROM LIVRAISON WHERE ETAT LIKE'"+arg1+"%'");//+tri
+    query->exec();
+        model->setQuery(*query);
+    ui->tableView_2->setModel(model);
+        }
+}
+}
+
+void MainWindow::on_pushButton_15_clicked()
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+
+        query->prepare("SELECT * FROM LIVRAISON order by ID");//+tri
+query->exec();
+    model->setQuery(*query);
+    QSystemTrayIcon *notifyIcon = new QSystemTrayIcon;
+    notifyIcon->show();
+    notifyIcon->setIcon(QIcon("icone.png"));
+
+    notifyIcon->showMessage("GESTION LIVRAISON ","table trié",QSystemTrayIcon::Information,15000);
+ui->tableView_2->setModel(model);
+
+}
+
+void MainWindow::on_pushButton_gestionclient_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+void MainWindow::on_pushButton_retour_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_retour_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_18_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_19_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_retour_5_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_20_clicked()
+{
+    QMessageBox::StandardButton reply = QMessageBox::question(this,"Deconnexion","Ets Vous sur ?", QMessageBox::Yes | QMessageBox::No);
+       if(reply == QMessageBox::Yes){
+           hide();
+           MainWindow0* a = new class MainWindow0(this);
+           a->show();
+       }
 }

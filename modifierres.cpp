@@ -23,11 +23,11 @@ void modifierres::on_buttonBox_accepted()
     QString Prenom = ui->lineEdit_prenom->text();
     QString Mail = ui->lineEdit_mail->text();
     QString Tel = ui->lineEdit_tel->text();
-    QDate Date = ui->dateTimeEdit->date();
+    QDate Dat = ui->dateTimeEdit->date();
 
 
-    Client C(CIN,Nom,Prenom,Mail,Tel,Date);
-     bool test=C.modifierres(CIN,Nom,Prenom,Mail,Tel,Date);
+    Client C(CIN,Nom,Prenom,Mail,Tel,Dat);
+     bool test=C.modifierres(CIN,Nom,Prenom,Mail,Tel,Dat);
     if(test)
     {
         QMessageBox::information(nullptr, QObject::tr("Modifier une reservationt !"),

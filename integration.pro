@@ -6,6 +6,8 @@ QT       +=charts
 QT       +=serialport
 QT       += network
 QT       += printsupport
+QT       += testlib
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -20,6 +22,8 @@ SOURCES += \
     conge.cpp \
     database.cpp \
     evenement.cpp \
+    fclient.cpp \
+    flivraison.cpp \
     fournisseur.cpp \
     home.cpp \
     main.cpp \
@@ -39,6 +43,18 @@ SOURCES += \
     modifiertab.cpp \
     produit.cpp \
     smtp.cpp \
+    src/emailaddress.cpp \
+    src/mimeattachment.cpp \
+    src/mimecontentformatter.cpp \
+    src/mimefile.cpp \
+    src/mimehtml.cpp \
+    src/mimeinlinefile.cpp \
+    src/mimemessage.cpp \
+    src/mimemultipart.cpp \
+    src/mimepart.cpp \
+    src/mimetext.cpp \
+    src/quotedprintable.cpp \
+    src/smtpclient.cpp \
     staff.cpp \
     supprimer_fournisseur.cpp \
     supprimerproduit.cpp \
@@ -52,6 +68,8 @@ HEADERS += \
     conge.h \
     database.h \
     evenement.h \
+    fclient.h \
+    flivraison.h \
     fournisseur.h \
     home.h \
     mainwindow.h \
@@ -71,6 +89,20 @@ HEADERS += \
     produit.h \
     querDefines.h \
     smtp.h \
+    src/SmtpMime \
+    src/emailaddress.h \
+    src/mimeattachment.h \
+    src/mimecontentformatter.h \
+    src/mimefile.h \
+    src/mimehtml.h \
+    src/mimeinlinefile.h \
+    src/mimemessage.h \
+    src/mimemultipart.h \
+    src/mimepart.h \
+    src/mimetext.h \
+    src/quotedprintable.h \
+    src/smtpclient.h \
+    src/smtpexports.h \
     staff.h \
     supprimer_fournisseur.h \
     supprimerproduit.h \
@@ -103,6 +135,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     BD.sql \
     Click.wav \
+    Incrypt.qss \
     SyNet.qss \
     integration.pro.user \
     integration.pro.user.bd35519 \
@@ -110,5 +143,6 @@ DISTFILES += \
     style.qss
 
 RESOURCES += \
+    ressources.qrc \
     ressources.qrc \
     ressources.qrc

@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <src/SmtpMime>
+#include <QtNetwork>
 #include <QMainWindow>
 #include <QWidget>
 #include <QItemSelectionModel>
@@ -18,6 +19,8 @@
 #include <QPropertyAnimation>
 #include "database.h"
 #include "staff.h"
+#include<fclient.h>
+#include<flivraison.h>
 #include "planning.h"
 #include"client.h"
 #include"tables.h"
@@ -71,9 +74,7 @@ public:
     QSystemTrayIcon *mysystem1;
 
 private slots:
-    void sendMail();
     void mailSent(QString);
-    void browse();
 
     void on_pushButton_ajoutercom_clicked();
 
@@ -275,9 +276,61 @@ private slots:
 
       void on_pushButton_stat_clicked();
 
-
-
       void on_pushButton_gestionstock_clicked();
+
+      void on_pushButton_mailCom_clicked();
+
+      //yassine
+      void on_pushButton_clicked();
+
+
+      void on_tableView_activated(const QModelIndex &index);
+
+      void on_pushButton_3_clicked();
+
+      void on_pushButton_4_clicked();
+
+      void on_pushButton_5_clicked();
+
+
+
+      void on_pushButton_6_clicked();
+
+
+
+      void on_pushButton_7_clicked();
+
+      void on_pushButton_8_clicked();
+
+      void on_pushButton_14_clicked();
+
+      void on_tableView_2_activated(const QModelIndex &index);
+
+      void on_pushButton_17_clicked();
+
+      void on_pushButton_13_clicked();
+
+      void on_lineEdit_2_textChanged(const QString &arg1);
+
+      void on_pushButton_12_clicked();
+
+      void on_pushButton_16_clicked();
+
+      void on_pushButton_15_clicked();
+
+      void on_pushButton_gestionclient_clicked();
+
+      void on_pushButton_retour_2_clicked();
+
+      void on_pushButton_retour_clicked();
+
+      void on_pushButton_18_clicked();
+
+      void on_pushButton_19_clicked();
+
+      void on_pushButton_retour_5_clicked();
+
+      void on_pushButton_20_clicked();
 
 private:
 Ui::MainWindow *ui;
@@ -298,6 +351,8 @@ Ui::MainWindow *ui;
     QSqlQuery qry,qry1;
     Produit tempproduit;
     Fournisseur tempfournisseur;
+    fclient tmpclient;
+    flivraison tmplivraison;
 
 };
 #endif // MAINWINDOW_H

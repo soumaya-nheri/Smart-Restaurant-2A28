@@ -37,5 +37,3 @@ void ajouterres::on_buttonBox_accepted()
                                  QObject::tr("Ajout non effectuer\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
 }
-
-
